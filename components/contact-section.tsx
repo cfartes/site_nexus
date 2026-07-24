@@ -12,14 +12,15 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    value: "contato@nexusdataanalytics.com",
-    href: "mailto:contato@nexusdataanalytics.com",
+    value: "comercial@nexusdataanalytics.com.br",
+    href: "mailto:comercial@nexusdataanalytics.com.br",
   },
   {
     icon: Phone,
-    title: "Telefone",
-    value: "+55 (11) 99999-9999",
-    href: "tel:+5511999999999",
+    title: "WhatsApp",
+    value: "(48) 3197-8198",
+    href: "https://wa.me/554831978198",
+    newTab: true,
   },
   {
     icon: MapPin,
@@ -61,6 +62,8 @@ export function ContactSection() {
                   <a
                     key={info.title}
                     href={info.href}
+                    target={info.newTab ? "_blank" : undefined}
+                    rel={info.newTab ? "noopener noreferrer" : undefined}
                     className="flex items-start gap-4 group"
                   >
                     <div className="flex size-12 items-center justify-center rounded-md border border-primary/20 bg-primary/10 transition-colors group-hover:bg-primary/20">

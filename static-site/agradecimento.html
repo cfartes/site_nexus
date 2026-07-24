@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nexus Data Analytics | Agradecimento</title>
+    <meta name="description" content="Mensagem de agradecimento da Nexus Data Analytics." />
+    <style>
+      :root {
+        --bg: #050f0d;
+        --text: #edf4f2;
+        --muted: #a0b6b1;
+        --primary: #6cff5a;
+        --border: rgba(255, 255, 255, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", "Inter", "Arial", sans-serif;
+        color: var(--text);
+        background-color: var(--bg);
+        background-image:
+          linear-gradient(rgba(108, 255, 90, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(108, 255, 90, 0.05) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(60, 230, 220, 0.12) 0, transparent 34rem);
+        background-size: 72px 72px, 72px 72px, 100% 100%;
+      }
+
+      .wrap {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(760px, 100%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
+          #061816;
+        box-shadow: 0 16px 60px rgba(0, 0, 0, 0.35);
+        padding: 36px 26px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(30px, 5vw, 48px);
+        line-height: 1.15;
+      }
+
+      p {
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: clamp(18px, 2.5vw, 28px);
+        line-height: 1.45;
+      }
+
+      .btn {
+        margin-top: 26px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 10px 22px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        font-weight: 700;
+        color: #08110f;
+        background: linear-gradient(90deg, var(--primary), #52dd48);
+        box-shadow: 0 0 24px rgba(108, 255, 90, 0.28);
+      }
+
+      .btn:hover {
+        filter: brightness(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="card" aria-label="Mensagem de agradecimento">
+        <h1>Nexus Data Analytics agradece seu contato.</h1>
+        <p>Nosso time comercial entrará em contato em breve</p>
+        <a class="btn" href="index.html">Voltar</a>
+      </section>
+    </main>
+  </body>
+</html>
