@@ -1,141 +1,120 @@
-"use client"
-
-import { BookOpen, DollarSign, Shield, Cloud, FileText, Lock, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { ArrowRight, BookOpen, Cloud, Lock, ShieldCheck, Sparkles } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { InteractiveSurface } from "@/components/interactive-surface"
+import { Reveal } from "@/components/reveal"
 
 const products = [
   {
-    id: "ai-wiki",
     name: "AI Wiki",
-    tagline: "Conhecimento Empresarial Inteligente",
-    description: "Carregue todo o conhecimento da sua wiki empresarial e disponibilize através de uma interface inteligente com IA. Seus colaboradores encontram respostas instantâneas para qualquer dúvida sobre processos, políticas e documentação interna.",
+    eyebrow: "Conhecimento empresarial",
+    description: "Transforme políticas, manuais e processos internos em respostas rastreáveis, com acesso às fontes utilizadas.",
+    href: "/produtos/ai-wiki",
+    accent: "#55ddeb",
     icon: BookOpen,
     features: [
-      { icon: Lock, text: "Execução on-premise disponível" },
-      { icon: Shield, text: "Dados seguros dentro da empresa" },
-      { icon: BookOpen, text: "Integração com wikis existentes" },
+      { icon: Lock, text: "Opção de execução on-premise" },
+      { icon: ShieldCheck, text: "Respostas vinculadas às fontes" },
     ],
-    highlight: "On-Premise",
-    color: "primary",
+    previewTitle: "O que você pode testar",
+    preview: [
+      { label: "Wikis e PDFs simulados", meta: "3 fontes" },
+      { label: "Experiências de usuário e admin", meta: "2 modos" },
+      { label: "Perguntas e respostas preparadas", meta: "3 cenários" },
+    ],
   },
   {
-    id: "finops-intelligence",
     name: "FinOps Intelligence",
-    tagline: "Otimização Inteligente de Custos Cloud",
-    description: "Analise suas subscrições de Azure, AWS e GCP de forma unificada. Nossa solução identifica oportunidades de otimização de custos e recursos, gerando relatórios gerenciais completos com recomendações acionáveis.",
-    icon: DollarSign,
+    eyebrow: "Visibilidade de custos cloud",
+    description: "Reúna custos de nuvem, investigue variações e priorize oportunidades de otimização em uma visão operacional.",
+    href: "/produtos/finops",
+    accent: "#f5b84b",
+    icon: Cloud,
     features: [
-      { icon: Cloud, text: "Multi-cloud: Azure, AWS, GCP" },
-      { icon: FileText, text: "Relatórios gerenciais detalhados" },
-      { icon: DollarSign, text: "Economia garantida" },
+      { icon: Cloud, text: "Auditoria de exportações de custos Azure" },
+      { icon: Sparkles, text: "Recomendações para análise da equipe" },
     ],
-    highlight: "Multi-Cloud",
-    color: "accent",
+    previewTitle: "O que você pode testar",
+    preview: [
+      { label: "Arquivo de custos pré-carregado", meta: "JSON" },
+      { label: "Auditoria com progresso", meta: "1 fluxo" },
+      { label: "Resultados e histórico", meta: "3 runs" },
+    ],
   },
 ]
 
 export function ProductsSection() {
   return (
-    <section id="produtos" className="relative py-20 md:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <p className="text-sm font-medium text-primary">Produtos SaaS</p>
-          <h2 className="mt-4 mb-6 text-3xl font-semibold text-balance sm:text-4xl md:text-5xl">
-            Soluções prontas para acelerar sua transformação
+    <section id="produtos" className="section-alt relative scroll-mt-24 overflow-hidden py-24 md:py-32">
+      <div className="product-dot-field pointer-events-none absolute inset-0 opacity-40" />
+      <div className="pointer-events-none absolute -left-52 top-1/3 size-[34rem] rounded-full bg-accent/[0.09] blur-[120px]" />
+      <div className="pointer-events-none absolute -right-52 top-1/4 size-[34rem] rounded-full bg-[#f5b84b]/[0.085] blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mx-auto mb-14 max-w-3xl text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Produtos próprios</p>
+          <h2 className="font-heading mt-4 text-3xl font-semibold tracking-[-0.035em] text-balance sm:text-4xl md:text-5xl">
+            Você não precisa imaginar como funciona.
           </h2>
-          <p className="text-lg leading-8 text-muted-foreground">
-            Além da consultoria, oferecemos produtos SaaS desenvolvidos com nossa expertise 
-            para resolver desafios comuns de forma rápida e eficiente.
+          <p className="mt-6 text-lg leading-8 text-muted-foreground">
+            Abra as demonstrações, percorra os fluxos e veja onde cada produto entra no trabalho
+            da equipe. Todos os documentos e valores apresentados são fictícios.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid gap-5 lg:grid-cols-2">
           {products.map((product, index) => (
-            <Card 
-              key={product.id} 
-              className="group overflow-hidden border-white/10 bg-card/70 transition-all duration-300 hover:-translate-y-1 hover:border-primary/45"
-            >
-              <CardHeader className="pb-5">
-                <div className="mb-5 flex items-start justify-between gap-4">
-                  <div className="flex size-14 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 transition-colors group-hover:bg-primary/20">
-                    <product.icon className="size-7 text-primary" />
+            <Reveal key={product.name} delay={index * 80}>
+              <InteractiveSurface accent={product.accent} className="h-full rounded-[1.25rem] border border-white/10 bg-card/70 p-6 sm:p-8">
+                <div className="flex items-start justify-between gap-5">
+                  <div className="flex size-12 items-center justify-center rounded-xl border bg-background/60" style={{ borderColor: `${product.accent}33`, color: product.accent }}>
+                    <product.icon className="size-5" />
                   </div>
-                  <Badge variant="outline" className="border-primary/30 bg-primary/10 text-primary">
-                    {product.highlight}
-                  </Badge>
+                  <span className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                    Dados simulados
+                  </span>
                 </div>
-                <CardTitle className="mb-2 text-2xl">{product.name}</CardTitle>
-                <p className="text-sm font-medium text-primary">{product.tagline}</p>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-6">
-                <CardDescription className="text-base leading-7 text-muted-foreground">
-                  {product.description}
-                </CardDescription>
-                
-                <div className="flex flex-col gap-3">
+                <p className="mt-8 text-sm font-medium" style={{ color: product.accent }}>{product.eyebrow}</p>
+                <h3 className="font-heading mt-2 text-3xl font-semibold tracking-[-0.03em]">{product.name}</h3>
+                <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{product.description}</p>
+
+                <div className="mt-6 grid gap-2">
                   {product.features.map((feature) => (
-                    <div key={feature.text} className="flex items-center gap-3">
-                      <div className="flex size-8 items-center justify-center rounded-md bg-secondary">
-                        <feature.icon className="size-4 text-primary" />
-                      </div>
-                      <span className="text-sm text-muted-foreground">{feature.text}</span>
+                    <div key={feature.text} className="flex items-center gap-3 text-sm">
+                      <feature.icon className="size-4" style={{ color: product.accent }} />
+                      {feature.text}
                     </div>
                   ))}
                 </div>
 
-                <ProductPreview variant={index} />
+                <div className="mt-8 rounded-2xl border border-white/10 bg-background/60 p-4">
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="font-mono text-[11px] text-muted-foreground">{product.previewTitle}</span>
+                    <span className="size-2 rounded-full" style={{ background: product.accent }} />
+                  </div>
+                  <div className="grid gap-2">
+                    {product.preview.map((item) => (
+                      <div key={item.label} className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.035] px-3 py-2.5 text-sm">
+                        <span className="min-w-0 truncate text-muted-foreground">{item.label}</span>
+                        <span className="font-mono text-xs" style={{ color: product.accent }}>
+                          {item.meta}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-                <Button className="w-full group/btn" asChild>
-                  <Link href="#demo">
-                    Solicitar Demonstração
-                    <ArrowRight data-icon="inline-end" className="transition-transform group-hover/btn:translate-x-1" />
+                <Button className="button-sheen group mt-7 w-full" variant={product.name === "AI Wiki" ? "outline" : "default"} asChild>
+                  <Link href={product.href}>
+                    Testar demonstração
+                    <ArrowRight className="transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </InteractiveSurface>
+            </Reveal>
           ))}
         </div>
       </div>
     </section>
-  )
-}
-
-function ProductPreview({ variant }: { variant: number }) {
-  const rows = variant === 0
-    ? ["Política de acesso", "Manual financeiro", "Processo de onboarding"]
-    : ["Azure compute", "AWS storage", "GCP analytics"]
-
-  return (
-    <div className="rounded-xl border border-white/10 bg-background/55 p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="size-2 rounded-full bg-primary" />
-          <span className="text-sm font-medium">{variant === 0 ? "Knowledge index" : "Cloud spend map"}</span>
-        </div>
-        <span className="text-xs text-muted-foreground">{variant === 0 ? "RAG seguro" : "Multi-cloud"}</span>
-      </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_7rem]">
-        <div className="flex flex-col gap-2">
-          {rows.map((row, rowIndex) => (
-            <div key={row} className="flex items-center justify-between rounded-md bg-white/[0.035] px-3 py-2 text-sm">
-              <span className="text-muted-foreground">{row}</span>
-              <span className="text-primary">{variant === 0 ? `${96 - rowIndex * 7}%` : `-${18 + rowIndex * 6}%`}</span>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-end gap-1 rounded-md bg-white/[0.035] p-3">
-          {[42, 72, 54, 88, 62, 96].map((height, index) => (
-            <span
-              key={index}
-              className="flex-1 rounded-t-sm bg-gradient-to-t from-accent/40 to-primary"
-              style={{ height: `${height}%` }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
   )
 }

@@ -1,84 +1,62 @@
-"use client"
-
-import { Target, Users, Award, Rocket } from "lucide-react"
+import { Compass, Handshake, Workflow } from "lucide-react"
+import { InteractiveSurface } from "@/components/interactive-surface"
+import { Reveal } from "@/components/reveal"
 
 const stats = [
-  { value: "100+", label: "Projetos Entregues" },
-  { value: "50+", label: "Clientes Satisfeitos" },
-  { value: "15+", label: "Anos de Experiência" },
-  { value: "99%", label: "Taxa de Satisfação" },
+  { value: "15+", label: "anos de experiência da equipe" },
+  { value: "100+", label: "projetos conduzidos" },
+  { value: "2", label: "produtos próprios" },
 ]
 
-const values = [
-  {
-    icon: Target,
-    title: "Foco em Resultados",
-    description: "Cada projeto é orientado para entregar valor mensurável e impacto real no negócio do cliente.",
-  },
-  {
-    icon: Users,
-    title: "Parceria Estratégica",
-    description: "Trabalhamos lado a lado com nossos clientes, entendendo profundamente seus desafios e objetivos.",
-  },
-  {
-    icon: Award,
-    title: "Excelência Técnica",
-    description: "Nossa equipe é formada por especialistas certificados nas principais tecnologias do mercado.",
-  },
-  {
-    icon: Rocket,
-    title: "Inovação Contínua",
-    description: "Estamos sempre atualizados com as últimas tendências e melhores práticas em data analytics e IA.",
-  },
+const principles = [
+  { icon: Compass, title: "Diagnóstico antes da tecnologia", text: "Entendemos a decisão, o processo e a restrição antes de escolher a solução." },
+  { icon: Workflow, title: "Arquitetura que cabe na operação", text: "Desenhamos soluções que a equipe consegue sustentar e evoluir." },
+  { icon: Handshake, title: "Conhecimento que permanece", text: "Documentação e transferência fazem parte da entrega, não do encerramento." },
 ]
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="relative py-20 md:py-32">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[0.95fr_1.05fr]">
-          <div>
-            <p className="text-sm font-medium text-primary">Sobre Nós</p>
-            <h2 className="mt-4 mb-6 text-3xl font-semibold text-balance sm:text-4xl md:text-5xl">
-              Especialistas em transformação digital orientada a dados
+    <section id="sobre" className="relative scroll-mt-24 overflow-hidden py-24 md:py-32">
+      <div className="pointer-events-none absolute -right-40 top-16 size-[30rem] rounded-full bg-primary/[0.06] blur-[100px]" />
+      <span className="pointer-events-none absolute -right-10 top-8 font-heading text-[15rem] font-semibold leading-none text-primary/[0.025] md:text-[24rem]" aria-hidden="true">15+</span>
+      <span className="pointer-events-none absolute -left-10 bottom-0 font-heading text-[12rem] font-semibold leading-none text-accent/[0.018] md:text-[20rem]" aria-hidden="true">100+</span>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+          <Reveal>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Sobre a Nexus</p>
+            <h2 className="font-heading mt-4 max-w-2xl text-3xl font-semibold tracking-[-0.035em] sm:text-4xl md:text-5xl">
+              Experiência que aparece no método e permanece na operação.
             </h2>
-            <p className="mb-8 text-lg leading-8 text-muted-foreground">
-              A Nexus Data Analytics nasceu da paixão por transformar dados em decisões inteligentes. 
-              Nossa equipe multidisciplinar combina profundo conhecimento técnico com visão de negócios 
-              para entregar soluções que realmente fazem a diferença.
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Reunimos mais de 15 anos de experiência em projetos de dados e tecnologia.
+              Atuamos da governança à inteligência artificial, conectando arquitetura,
+              pessoas e decisões de negócio.
             </p>
-            <p className="text-lg leading-8 text-muted-foreground">
-              Desde governança até inteligência artificial, oferecemos uma abordagem completa 
-              que cobre toda a jornada de dados da sua organização, sempre com foco em resultados 
-              tangíveis e retorno sobre investimento.
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Nosso trabalho não termina em uma apresentação: entregamos soluções operáveis,
+              documentação clara e capacidade para a equipe continuar evoluindo.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="data-panel grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-px">
+          <Reveal delay={100} className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1">
             {stats.map((stat) => (
-              <div 
-                key={stat.label} 
-                className="bg-card/95 p-6 text-center transition-colors hover:bg-secondary/70 md:p-8"
-              >
-                <div className="mb-2 text-4xl font-semibold text-primary md:text-5xl">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div key={stat.label} className="flex items-center gap-5 rounded-2xl border border-white/10 bg-card/65 p-5">
+                <span className="font-heading min-w-24 text-4xl font-semibold text-primary">{stat.value}</span>
+                <span className="text-sm leading-5 text-muted-foreground">{stat.label}</span>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
-          {values.map((value) => (
-            <div 
-              key={value.title} 
-              className="group rounded-xl border border-white/10 bg-white/[0.035] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/45"
-            >
-              <div className="mb-4 flex size-12 items-center justify-center rounded-md border border-primary/20 bg-primary/10 transition-colors group-hover:bg-primary/20">
-                <value.icon className="size-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{value.title}</h3>
-              <p className="text-sm leading-6 text-muted-foreground">{value.description}</p>
-            </div>
+        <div className="mt-16 grid gap-4 md:grid-cols-3">
+          {principles.map((item, index) => (
+            <Reveal key={item.title} delay={index * 60}>
+              <InteractiveSurface className="h-full rounded-2xl border border-white/10 bg-white/[0.025] p-6">
+                <item.icon className="size-5 text-primary" />
+                <h3 className="font-heading mt-6 text-lg font-semibold">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.text}</p>
+              </InteractiveSurface>
+            </Reveal>
           ))}
         </div>
       </div>

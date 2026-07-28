@@ -6,10 +6,10 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
-  { href: "#servicos", label: "Serviços" },
-  { href: "#produtos", label: "Produtos" },
-  { href: "#sobre", label: "Sobre" },
-  { href: "#contato", label: "Contato" },
+  { href: "/#servicos", label: "Serviços" },
+  { href: "/#produtos", label: "Produtos" },
+  { href: "/#sobre", label: "Sobre" },
+  { href: "/#contato", label: "Contato" },
 ]
 
 export function Header() {
@@ -40,10 +40,10 @@ export function Header() {
 
           <div className="hidden md:flex items-center gap-4">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" asChild>
-              <Link href="#contato">Fale Conosco</Link>
+              <Link href="/#contato">Fale Conosco</Link>
             </Button>
             <Button size="sm" className="shadow-[0_0_28px_rgba(149,255,128,0.22)]" asChild>
-              <Link href="#demo">Agendar Demo</Link>
+              <Link href="/#produtos">Testar produtos</Link>
             </Button>
           </div>
 
@@ -71,10 +71,10 @@ export function Header() {
               ))}
               <div className="flex flex-col gap-2 border-t border-white/10 pt-4">
                 <Button variant="ghost" size="sm" asChild>
-                  <Link href="#contato">Fale Conosco</Link>
+                  <Link href="/#contato">Fale Conosco</Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link href="#demo">Agendar Demo</Link>
+                  <Link href="/#produtos">Testar produtos</Link>
                 </Button>
               </div>
             </nav>

@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Sora } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", preload: false })
+const sora = Sora({ subsets: ["latin"], variable: "--font-sora", preload: false })
 const isVercelProduction = process.env.NODE_ENV === 'production' && process.env.VERCEL === '1'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://nexusdataanalytics.com.br'),
   title: 'Nexus Data Analytics | Consultoria em Data & Analytics, IA e Governança de Dados',
   description: 'Transforme seus dados em vantagem competitiva. Consultoria especializada em Governança de Dados, Engenharia de Dados, DataViz, Ciência de Dados e Inteligência Artificial. Conheça nossos produtos SaaS: AI Wiki e FinOps Intelligence.',
   keywords: ['consultoria de dados', 'data analytics', 'governança de dados', 'engenharia de dados', 'ciência de dados', 'inteligência artificial', 'IA', 'dataviz', 'visualização de dados', 'FinOps', 'otimização de custos cloud', 'Azure', 'AWS', 'GCP'],
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://nexusdataanalytics.com',
+    url: 'https://nexusdataanalytics.com.br',
     siteName: 'Nexus Data Analytics',
     title: 'Nexus Data Analytics | Consultoria em Data & Analytics',
     description: 'Transforme seus dados em vantagem competitiva. Especialistas em Governança, Engenharia, DataViz, Ciência de Dados e IA.',
@@ -65,8 +67,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className="bg-background">
-      <body className="font-sans antialiased overflow-x-hidden">
+    <html lang="pt-BR" className="dark bg-background">
+      <body className={`${geist.variable} ${geistMono.variable} ${sora.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
         {isVercelProduction && <Analytics />}
       </body>
