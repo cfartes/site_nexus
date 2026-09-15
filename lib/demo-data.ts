@@ -98,3 +98,66 @@ export const finopsRuns: FinOpsRun[] = [
   { id: "RUN-005", period: "Mai/2026", resources: 141, cost: "R$ 79,3 mil", potential: "R$ 10,6 mil" },
   { id: "RUN-004", period: "Abr/2026", resources: 136, cost: "R$ 80,6 mil", potential: "R$ 11,1 mil" },
 ]
+
+export type ArgusCapacity = {
+  name: string
+  sku: string
+  status: "Saudável" | "Atenção"
+  workspaces: number
+  items: number
+  background: number
+  interactive: number
+  delay: number
+  rejection: number
+}
+
+export const argusCapacities: ArgusCapacity[] = [
+  { name: "prod-fabric-01", sku: "F64", status: "Saudável", workspaces: 11, items: 704, background: 18.8, interactive: 2.7, delay: 19.5, rejection: 1.2 },
+  { name: "dev-fabric-02", sku: "F32", status: "Atenção", workspaces: 6, items: 213, background: 41.2, interactive: 12.4, delay: 34.1, rejection: 9.6 },
+]
+
+export const argusConsumption = [21, 34, 28, 52, 38, 61, 45, 72, 39, 58, 84, 47]
+
+export type ArgusWorkspace = {
+  name: string
+  items: number
+  events: number
+  users: number
+}
+
+export const argusWorkspaces: ArgusWorkspace[] = [
+  { name: "Comercial BI", items: 68, events: 67703, users: 195 },
+  { name: "Logística & CS", items: 84, events: 51041, users: 62 },
+  { name: "Financeiro", items: 12, events: 2990, users: 18 },
+  { name: "People Analytics", items: 23, events: 8760, users: 41 },
+]
+
+export type ArgusExecution = {
+  when: string
+  workspace: string
+  item: string
+  type: string
+  status: "OK" | "Falha" | "Em execução"
+  duration: string
+}
+
+export const argusExecutions: ArgusExecution[] = [
+  { when: "01/09 · 23:35", workspace: "Comercial BI", item: "Report Usage Metrics", type: "Dataset", status: "OK", duration: "1s" },
+  { when: "01/09 · 21:53", workspace: "Integração SFTP", item: "notebook_ingestao_pedidos", type: "Notebook", status: "Falha", duration: "—" },
+  { when: "01/09 · 20:59", workspace: "Logística & CS", item: "silver_to_gold_ctrl_preco", type: "Notebook", status: "Em execução", duration: "—" },
+  { when: "01/09 · 20:53", workspace: "Financeiro", item: "Copy_Data_Fechamento", type: "Pipeline", status: "OK", duration: "1m 43s" },
+  { when: "01/09 · 18:12", workspace: "Comercial BI", item: "Carteira por Ordem", type: "Relatório", status: "OK", duration: "8s" },
+]
+
+export const argusAutoFix = {
+  workspace: "Integração SFTP",
+  notebook: "notebook_ingestao_pedidos",
+  error: "System Cancelled Session Statements Failed",
+  rule: "session_cancelled",
+  failures14d: 14,
+  diagnosis:
+    "A sessão Spark foi encerrada pelo sistema antes de concluir a leitura do arquivo de origem, provavelmente por tempo ocioso acima do limite configurado no gateway.",
+  recommendation:
+    "Ajustar o timeout de sessão do notebook e adicionar uma rotina de retomada automática após reconexão do gateway.",
+  prBranch: "auto-fix/notebook-ingestao-pedidos",
+}

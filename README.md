@@ -34,4 +34,4 @@ Sem essas variáveis, o endpoint retorna indisponibilidade e o site orienta o vi
 
 ## Demonstrações
 
-As experiências de AI Wiki e FinOps Intelligence são executadas inteiramente no frontend com dados fictícios. Elas não enviam documentos, custos ou informações pessoais para um backend.
+As experiências de AI Wiki, FinOps Intelligence e Argus Sentinel são executadas inteiramente no frontend com dados fictícios. Elas não enviam documentos, custos, falhas ou informações pessoais para um backend.

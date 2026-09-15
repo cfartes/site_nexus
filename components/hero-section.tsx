@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import {
+  AlertTriangle,
   ArrowRight,
   BarChart3,
   BookOpen,
@@ -11,8 +12,10 @@ import {
   Database,
   FileJson,
   FileText,
+  GitPullRequest,
   LoaderCircle,
   Play,
+  Radar,
   SearchCheck,
   ShieldCheck,
 } from "lucide-react"
@@ -26,8 +29,26 @@ const capabilities = [
   { title: "IA aplicada", description: "Modelos em operação", href: "#servico-ia", icon: Brain },
 ]
 
+const productLinks = {
+  wiki: {
+    href: "/produtos/ai-wiki",
+    label: "Testar demonstração do AI Wiki",
+    ctaClass: "border-accent/20 bg-accent/[0.055] text-accent hover:border-accent/45",
+  },
+  finops: {
+    href: "/produtos/finops",
+    label: "Testar demonstração do FinOps",
+    ctaClass: "border-[#f5b84b]/20 bg-[#f5b84b]/[0.055] text-[#f5b84b] hover:border-[#f5b84b]/45",
+  },
+  argus: {
+    href: "/produtos/argus",
+    label: "Testar demonstração do Argus Sentinel",
+    ctaClass: "border-[#8b7cf6]/20 bg-[#8b7cf6]/[0.055] text-[#8b7cf6] hover:border-[#8b7cf6]/45",
+  },
+} as const
+
 export function HeroSection() {
-  const [product, setProduct] = useState<"wiki" | "finops">("wiki")
+  const [product, setProduct] = useState<"wiki" | "finops" | "argus">("wiki")
 
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 md:pt-28">
@@ -73,20 +94,27 @@ export function HeroSection() {
                   <p className="font-heading text-sm font-semibold">Veja os produtos em ação</p>
                   <p className="mt-1 font-mono text-[11px] text-muted-foreground">Demonstração com dados simulados</p>
                 </div>
-                <div className="grid grid-cols-2 rounded-xl bg-background/70 p-1">
+                <div className="grid grid-cols-3 rounded-xl bg-background/70 p-1">
                   <button
                     onClick={() => setProduct("wiki")}
                     aria-pressed={product === "wiki"}
-                    className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${product === "wiki" ? "bg-accent/15 text-accent" : "text-muted-foreground hover:text-foreground"}`}
+                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === "wiki" ? "bg-accent/15 text-accent" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     AI Wiki
                   </button>
                   <button
                     onClick={() => setProduct("finops")}
                     aria-pressed={product === "finops"}
-                    className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${product === "finops" ? "bg-[#f5b84b]/15 text-[#f5b84b]" : "text-muted-foreground hover:text-foreground"}`}
+                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === "finops" ? "bg-[#f5b84b]/15 text-[#f5b84b]" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     FinOps
+                  </button>
+                  <button
+                    onClick={() => setProduct("argus")}
+                    aria-pressed={product === "argus"}
+                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === "argus" ? "bg-[#8b7cf6]/15 text-[#8b7cf6]" : "text-muted-foreground hover:text-foreground"}`}
+                  >
+                    Argus
                   </button>
                 </div>
               </div>
@@ -98,18 +126,17 @@ export function HeroSection() {
                 <div className={product === "finops" ? "block" : "hidden"} aria-hidden={product !== "finops"}>
                   <FinOpsPreview />
                 </div>
+                <div className={product === "argus" ? "block" : "hidden"} aria-hidden={product !== "argus"}>
+                  <ArgusPreview />
+                </div>
               </div>
 
               <div className="mt-4 border-t border-white/10 pt-4">
                 <Link
-                  href={product === "wiki" ? "/produtos/ai-wiki" : "/produtos/finops"}
-                  className={`group flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
-                    product === "wiki"
-                      ? "border-accent/20 bg-accent/[0.055] text-accent hover:border-accent/45"
-                      : "border-[#f5b84b]/20 bg-[#f5b84b]/[0.055] text-[#f5b84b] hover:border-[#f5b84b]/45"
-                  }`}
+                  href={productLinks[product].href}
+                  className={`group flex items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5 ${productLinks[product].ctaClass}`}
                 >
-                  {product === "wiki" ? "Testar demonstração do AI Wiki" : "Testar demonstração do FinOps"}
+                  {productLinks[product].label}
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -343,6 +370,87 @@ function FinOpsPreview() {
                 <p className="text-xs font-medium">Recomendação priorizada</p>
                 <p className="mt-1 text-xs leading-5 text-muted-foreground">
                   Execute a auditoria para revelar uma oportunidade simulada.
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ArgusPreview() {
+  const [state, setState] = useState<"idle" | "investigating" | "done">("idle")
+
+  useEffect(() => {
+    if (state !== "investigating") return
+    const timer = window.setTimeout(() => setState("done"), 900)
+    return () => window.clearTimeout(timer)
+  }, [state])
+
+  function runAutoFix() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setState("done")
+      return
+    }
+    setState("investigating")
+  }
+
+  return (
+    <div className="grid gap-4">
+      <div className="flex items-center gap-3 rounded-xl border border-[#f87171]/20 bg-[#f87171]/[0.055] p-4">
+        <AlertTriangle className="size-5 shrink-0 text-[#f87171]" />
+        <div className="min-w-0 flex-1">
+          <p className="text-xs text-muted-foreground">Falha detectada</p>
+          <p className="mt-1 truncate font-mono text-xs font-medium">notebook_ingestao_pedidos</p>
+        </div>
+        <span className="rounded-full bg-[#f87171]/10 px-2.5 py-1 font-mono text-[9px] text-[#f87171]">14 em 14d</span>
+      </div>
+
+      <div className="rounded-xl border border-white/10 bg-background/55 p-5" aria-live="polite">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            {state === "investigating" ? (
+              <LoaderCircle className="size-5 animate-spin text-[#8b7cf6]" />
+            ) : (
+              <Radar className="size-5 text-[#8b7cf6]" />
+            )}
+            <div>
+              <p className="text-sm font-medium">
+                {state === "done" ? "Correção proposta" : state === "investigating" ? "Diagnosticando causa…" : "Pronto para investigar"}
+              </p>
+              <p className="mt-1 font-mono text-[10px] text-muted-foreground">Argus Sentinel · sandbox</p>
+            </div>
+          </div>
+        </div>
+        <Button className="mt-5 w-full border-[#8b7cf6]/25 text-[#8b7cf6] hover:bg-[#8b7cf6]/10 hover:text-[#c3b8ff]" variant="outline" onClick={runAutoFix} disabled={state === "investigating"}>
+          {state === "investigating" ? <LoaderCircle className="animate-spin" /> : <ShieldCheck />}
+          {state === "done" ? "Investigar novamente" : state === "investigating" ? "Investigando…" : "Executar Auto-Fix de exemplo"}
+        </Button>
+      </div>
+
+      <div className={`rounded-xl border p-4 transition-colors ${
+        state === "done"
+          ? "border-[#8b7cf6]/30 bg-[#8b7cf6]/[0.07]"
+          : "border-white/10 bg-white/[0.025]"
+      }`}>
+        <div className="flex items-start gap-3">
+          <GitPullRequest className="mt-0.5 size-5 shrink-0 text-[#8b7cf6]" />
+          <div className="min-w-0 flex-1">
+            {state === "done" ? (
+              <>
+                <p className="font-mono text-[9px] uppercase tracking-wider text-[#8b7cf6]">Pull request preparado</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Sessão Spark encerrada por tempo ocioso. O Argus ajusta o timeout e propõe retomada automática —
+                  aguardando aprovação do time.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-xs font-medium">Correção assistida por IA</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Execute o Auto-Fix para ver o Argus diagnosticar a falha e propor uma correção.
                 </p>
               </>
             )}

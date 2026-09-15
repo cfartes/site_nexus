@@ -6,7 +6,7 @@ const contactSchema = z.object({
   name: z.string().trim().min(2).max(100),
   email: z.string().trim().email().max(160),
   company: z.string().trim().max(120).optional().default(""),
-  interest: z.enum(["consultoria", "ai-wiki", "finops", "projeto-personalizado", "outro"]),
+  interest: z.enum(["consultoria", "ai-wiki", "finops", "argus", "projeto-personalizado", "outro"]),
   message: z.string().trim().min(10).max(2000),
   website: z.string().max(0).optional().default(""),
 })

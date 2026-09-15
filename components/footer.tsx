@@ -7,6 +7,7 @@ const links = [
   { label: "Contato", href: "/#contato" },
   { label: "AI Wiki", href: "/produtos/ai-wiki" },
   { label: "FinOps Intelligence", href: "/produtos/finops" },
+  { label: "Argus Sentinel", href: "/produtos/argus" },
 ]
 
 export function Footer() {

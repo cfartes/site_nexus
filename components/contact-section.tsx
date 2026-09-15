@@ -145,6 +145,7 @@ export function ContactSection() {
                               <SelectItem value="consultoria">Consultoria</SelectItem>
                               <SelectItem value="ai-wiki">AI Wiki</SelectItem>
                               <SelectItem value="finops">FinOps Intelligence</SelectItem>
+                              <SelectItem value="argus">Argus Sentinel</SelectItem>
                               <SelectItem value="projeto-personalizado">Projeto personalizado</SelectItem>
                               <SelectItem value="outro">Outro</SelectItem>
                             </SelectGroup>

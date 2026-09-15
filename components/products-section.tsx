@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, BookOpen, Cloud, Lock, ShieldCheck, Sparkles } from "lucide-react"
+import { ArrowRight, BookOpen, Cloud, GitPullRequest, Lock, Radar, ShieldCheck, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InteractiveSurface } from "@/components/interactive-surface"
 import { Reveal } from "@/components/reveal"
@@ -41,6 +41,24 @@ const products = [
       { label: "Resultados e histórico", meta: "3 runs" },
     ],
   },
+  {
+    name: "Argus Sentinel",
+    eyebrow: "Torre de controle Fabric & Power BI",
+    description: "Monitore capacidades e falhas do ambiente e deixe a IA propor correções, com aprovação humana antes de aplicar.",
+    href: "/produtos/argus",
+    accent: "#8b7cf6",
+    icon: Radar,
+    features: [
+      { icon: GitPullRequest, text: "Correções propostas via Auto-Fix" },
+      { icon: ShieldCheck, text: "Aprovação humana antes de aplicar" },
+    ],
+    previewTitle: "O que você pode testar",
+    preview: [
+      { label: "Dashboard de capacidades", meta: "2 itens" },
+      { label: "Execuções e falhas simuladas", meta: "1 fluxo" },
+      { label: "Auto-Fix com proposta de PR", meta: "IA" },
+    ],
+  },
 ]
 
 export function ProductsSection() {
@@ -62,49 +80,51 @@ export function ProductsSection() {
           </p>
         </Reveal>
 
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2 2xl:grid-cols-3">
           {products.map((product, index) => (
             <Reveal key={product.name} delay={index * 80}>
-              <InteractiveSurface accent={product.accent} className="h-full rounded-[1.25rem] border border-white/10 bg-card/70 p-6 sm:p-8">
-                <div className="flex items-start justify-between gap-5">
-                  <div className="flex size-12 items-center justify-center rounded-xl border bg-background/60" style={{ borderColor: `${product.accent}33`, color: product.accent }}>
-                    <product.icon className="size-5" />
-                  </div>
-                  <span className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    Dados simulados
-                  </span>
-                </div>
-                <p className="mt-8 text-sm font-medium" style={{ color: product.accent }}>{product.eyebrow}</p>
-                <h3 className="font-heading mt-2 text-3xl font-semibold tracking-[-0.03em]">{product.name}</h3>
-                <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{product.description}</p>
-
-                <div className="mt-6 grid gap-2">
-                  {product.features.map((feature) => (
-                    <div key={feature.text} className="flex items-center gap-3 text-sm">
-                      <feature.icon className="size-4" style={{ color: product.accent }} />
-                      {feature.text}
+              <InteractiveSurface accent={product.accent} className="flex h-full flex-col rounded-[1.25rem] border border-white/10 bg-card/70 p-6 sm:p-8">
+                <div className="flex-1">
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="flex size-12 items-center justify-center rounded-xl border bg-background/60" style={{ borderColor: `${product.accent}33`, color: product.accent }}>
+                      <product.icon className="size-5" />
                     </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 rounded-2xl border border-white/10 bg-background/60 p-4">
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="font-mono text-[11px] text-muted-foreground">{product.previewTitle}</span>
-                    <span className="size-2 rounded-full" style={{ background: product.accent }} />
+                    <span className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                      Dados simulados
+                    </span>
                   </div>
-                  <div className="grid gap-2">
-                    {product.preview.map((item) => (
-                      <div key={item.label} className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.035] px-3 py-2.5 text-sm">
-                        <span className="min-w-0 truncate text-muted-foreground">{item.label}</span>
-                        <span className="font-mono text-xs" style={{ color: product.accent }}>
-                          {item.meta}
-                        </span>
+                  <p className="mt-8 text-sm font-medium" style={{ color: product.accent }}>{product.eyebrow}</p>
+                  <h3 className="font-heading mt-2 text-3xl font-semibold tracking-[-0.03em]">{product.name}</h3>
+                  <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{product.description}</p>
+
+                  <div className="mt-6 grid gap-2">
+                    {product.features.map((feature) => (
+                      <div key={feature.text} className="flex items-center gap-3 text-sm">
+                        <feature.icon className="size-4" style={{ color: product.accent }} />
+                        {feature.text}
                       </div>
                     ))}
                   </div>
+
+                  <div className="mt-8 rounded-2xl border border-white/10 bg-background/60 p-4">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="font-mono text-[11px] text-muted-foreground">{product.previewTitle}</span>
+                      <span className="size-2 rounded-full" style={{ background: product.accent }} />
+                    </div>
+                    <div className="grid gap-2">
+                      {product.preview.map((item) => (
+                        <div key={item.label} className="flex min-w-0 items-center justify-between gap-3 rounded-lg bg-white/[0.035] px-3 py-2.5 text-sm">
+                          <span className="min-w-0 truncate text-muted-foreground">{item.label}</span>
+                          <span className="shrink-0 whitespace-nowrap font-mono text-xs" style={{ color: product.accent }}>
+                            {item.meta}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <Button className="button-sheen group mt-7 w-full" variant={product.name === "AI Wiki" ? "outline" : "default"} asChild>
+                <Button className="button-sheen group mt-7 w-full" variant="outline" asChild>
                   <Link href={product.href}>
                     Testar demonstração
                     <ArrowRight className="transition-transform group-hover:translate-x-1" />
