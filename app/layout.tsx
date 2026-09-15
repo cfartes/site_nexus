@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Sora } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { WhatsappFloatButton } from '@/components/whatsapp-float-button'
 import './globals.css'
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
@@ -70,6 +71,7 @@ export default function RootLayout({
     <html lang="pt-BR" className="dark bg-background">
       <body className={`${geist.variable} ${geistMono.variable} ${sora.variable} font-sans antialiased overflow-x-hidden`}>
         {children}
+        <WhatsappFloatButton />
         {isVercelProduction && <Analytics />}
       </body>
     </html>

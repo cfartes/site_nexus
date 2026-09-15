@@ -8,10 +8,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Reveal } from "@/components/reveal"
+import { buildWhatsappUrl, whatsappDisplay } from "@/lib/site-config"
 
 const contactInfo = [
   { icon: Mail, title: "E-mail", value: "comercial@nexusdataanalytics.com.br", href: "mailto:comercial@nexusdataanalytics.com.br" },
-  { icon: Phone, title: "WhatsApp", value: "(48) 3197-8198", href: "https://wa.me/554831978198", newTab: true },
+  { icon: Phone, title: "WhatsApp", value: whatsappDisplay, href: buildWhatsappUrl(), newTab: true },
   { icon: MapPin, title: "Atuação", value: "Projetos em todo o Brasil" },
 ]
 
