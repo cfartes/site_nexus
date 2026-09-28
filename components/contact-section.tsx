@@ -1,14 +1,16 @@
 "use client"
 
 import { type FormEvent, useState } from "react"
+import { usePathname } from "next/navigation"
 import { AlertCircle, CheckCircle, LoaderCircle, Mail, MapPin, Phone, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Reveal } from "@/components/reveal"
 import { buildWhatsappUrl, whatsappDisplay } from "@/lib/site-config"
+import { type ContactInterest, contactInterestGroups } from "@/lib/contact"
 
 const contactInfo = [
   { icon: Mail, title: "E-mail", value: "comercial@nexusdataanalytics.com.br", href: "mailto:comercial@nexusdataanalytics.com.br" },
@@ -18,9 +20,24 @@ const contactInfo = [
 
 type SubmitState = "idle" | "sending" | "success" | "error"
 
-export function ContactSection() {
+export function ContactSection({
+  eyebrow = "Próximo passo",
+  title = "Conte onde os dados estão travando o trabalho.",
+  description = "Pode ser uma planilha que virou processo, um custo difícil de explicar ou conhecimento que ninguém consegue encontrar. A primeira conversa serve para organizar o problema e definir um próximo passo útil.",
+  defaultInterest,
+  messageLabel = "Como podemos ajudar?",
+  messagePlaceholder = "Descreva brevemente o problema, contexto ou objetivo...",
+}: {
+  eyebrow?: string
+  title?: string
+  description?: string
+  defaultInterest?: ContactInterest
+  messageLabel?: string
+  messagePlaceholder?: string
+} = {}) {
+  const pathname = usePathname()
   const [status, setStatus] = useState<SubmitState>("idle")
-  const [interest, setInterest] = useState("")
+  const [interest, setInterest] = useState<string>(defaultInterest ?? "")
   const [errorMessage, setErrorMessage] = useState("")
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -40,6 +57,8 @@ export function ContactSection() {
           company: form.get("company"),
           interest,
           message: form.get("message"),
+          inspectionTarget: interest === "visao-computacional" ? form.get("inspectionTarget") ?? "" : "",
+          sourcePage: pathname,
           website: form.get("website"),
         }),
       })
@@ -49,7 +68,7 @@ export function ContactSection() {
 
       setStatus("success")
       formElement.reset()
-      setInterest("")
+      setInterest(defaultInterest ?? "")
     } catch (error) {
       setStatus("error")
       setErrorMessage(error instanceof Error ? error.message : "Não foi possível enviar sua mensagem.")
@@ -68,15 +87,11 @@ export function ContactSection() {
       <div className="pointer-events-none absolute right-[17%] top-[52%] size-64 rounded-full bg-primary/[0.055] blur-[90px]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-14 max-w-3xl">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Próximo passo</p>
-          <h2 className="font-heading mt-4 text-3xl font-semibold tracking-[-0.035em] sm:text-4xl md:text-5xl">
-            Conte onde os dados estão travando o trabalho.
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
+          <h2 className="font-heading mt-4 text-3xl font-semibold tracking-[-0.035em] text-balance sm:text-4xl md:text-5xl">
+            {title}
           </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Pode ser uma planilha que virou processo, um custo difícil de explicar ou conhecimento
-            que ninguém consegue encontrar. A primeira conversa serve para organizar o problema
-            e definir um próximo passo útil.
-          </p>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
         </Reveal>
 
         <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
@@ -132,7 +147,7 @@ export function ContactSection() {
                     </div>
                     <div className="grid gap-6 sm:grid-cols-2">
                       <Field>
-                        <FieldLabel htmlFor="company">Empresa</FieldLabel>
+                        <FieldLabel htmlFor="company">Empresa <span className="font-normal text-muted-foreground">(opcional)</span></FieldLabel>
                         <Input id="company" name="company" placeholder="Nome da empresa" maxLength={120} />
                       </Field>
                       <Field>
@@ -142,21 +157,29 @@ export function ContactSection() {
                             <SelectValue placeholder="Selecione uma opção" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value="consultoria">Consultoria</SelectItem>
-                              <SelectItem value="ai-wiki">AI Wiki</SelectItem>
-                              <SelectItem value="finops">FinOps Intelligence</SelectItem>
-                              <SelectItem value="argus">Argus Sentinel</SelectItem>
-                              <SelectItem value="projeto-personalizado">Projeto personalizado</SelectItem>
-                              <SelectItem value="outro">Outro</SelectItem>
-                            </SelectGroup>
+                            {contactInterestGroups.map((group) => (
+                              <SelectGroup key={group.label}>
+                                <SelectLabel>{group.label}</SelectLabel>
+                                {group.options.map((option) => (
+                                  <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                                ))}
+                              </SelectGroup>
+                            ))}
                           </SelectContent>
                         </Select>
                       </Field>
                     </div>
+                    {interest === "visao-computacional" && (
+                      <Field>
+                        <FieldLabel htmlFor="inspectionTarget">
+                          O que você gostaria de inspecionar ou conferir na sua operação? <span className="font-normal text-muted-foreground">(opcional)</span>
+                        </FieldLabel>
+                        <Input id="inspectionTarget" name="inspectionTarget" placeholder="Ex.: acabamento de peças, montagem de componentes, rótulos" maxLength={500} />
+                      </Field>
+                    )}
                     <Field>
-                      <FieldLabel htmlFor="message">Como podemos ajudar?</FieldLabel>
-                      <Textarea id="message" name="message" placeholder="Descreva brevemente o problema, contexto ou objetivo..." rows={5} required minLength={10} maxLength={2000} />
+                      <FieldLabel htmlFor="message">{messageLabel}</FieldLabel>
+                      <Textarea id="message" name="message" placeholder={messagePlaceholder} rows={5} required minLength={10} maxLength={2000} />
                     </Field>
                     {status === "error" && (
                       <div className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-sm text-red-200" role="alert">

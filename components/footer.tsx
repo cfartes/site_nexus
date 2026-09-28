@@ -1,20 +1,42 @@
 import Link from "next/link"
+import { industrialPages } from "@/lib/industrial-pages"
 
-const links = [
-  { label: "Serviços", href: "/#servicos" },
-  { label: "Produtos", href: "/#produtos" },
-  { label: "Sobre", href: "/#sobre" },
-  { label: "Contato", href: "/#contato" },
-  { label: "AI Wiki", href: "/produtos/ai-wiki" },
-  { label: "FinOps Intelligence", href: "/produtos/finops" },
-  { label: "Argus Sentinel", href: "/produtos/argus" },
+const linkGroups = [
+  {
+    title: "Nexus",
+    links: [
+      { label: "Serviços", href: "/#servicos" },
+      { label: "Produtos", href: "/#produtos" },
+      { label: "Sobre", href: "/#sobre" },
+      { label: "Contato", href: "/#contato" },
+    ],
+  },
+  {
+    title: "Produtos",
+    links: [
+      { label: "AI Wiki", href: "/produtos/ai-wiki" },
+      { label: "FinOps Intelligence", href: "/produtos/finops" },
+      { label: "Argus Sentinel", href: "/produtos/argus" },
+    ],
+  },
+  {
+    title: "Indústria",
+    links: [
+      { label: industrialPages.hub.shortName, href: industrialPages.hub.href },
+      { label: "MES", href: `${industrialPages.hub.href}#mes` },
+      { label: "Cyber OT", href: `${industrialPages.hub.href}#cyber-ot` },
+      { label: industrialPages.vision.shortName, href: industrialPages.vision.href },
+      { label: industrialPages.wiki.shortName, href: industrialPages.wiki.href },
+      { label: industrialPages.data.shortName, href: industrialPages.data.href },
+    ],
+  },
 ]
 
 export function Footer() {
   return (
     <footer className="border-t border-white/10 py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+        <div className="grid gap-10 lg:grid-cols-[1fr_auto]">
           <div>
             <Link href="/" className="inline-flex flex-col leading-none" aria-label="Nexus Data Analytics">
               <span className="font-heading text-3xl font-bold text-primary">nexus</span>
@@ -25,11 +47,20 @@ export function Footer() {
               com mais clareza.
             </p>
           </div>
-          <nav className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3" aria-label="Rodapé">
-            {links.map((link) => (
-              <Link key={link.label} href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                {link.label}
-              </Link>
+          <nav className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3" aria-label="Rodapé">
+            {linkGroups.map((group) => (
+              <div key={group.title}>
+                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-primary/80">{group.title}</p>
+                <ul className="mt-4 grid gap-3">
+                  {group.links.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </nav>
         </div>
