@@ -2,11 +2,15 @@ export const contactInterestGroups = [
   {
     label: "Dados, IA e produtos",
     options: [
-      { value: "consultoria", label: "Consultoria" },
+      { value: "consultoria", label: "Consultoria em Dados e IA" },
+      { value: "cto-as-a-service", label: "CTO as a Service" },
       { value: "ai-wiki", label: "AI Wiki" },
       { value: "finops", label: "FinOps Intelligence" },
       { value: "argus", label: "Argus Sentinel" },
+      { value: "delegometro", label: "Delegômetro" },
       { value: "projeto-personalizado", label: "Projeto personalizado" },
+      { value: "fabrica-de-software", label: "Fábrica de Software" },
+      { value: "outsourcing-ti", label: "Outsourcing de TI" },
     ],
   },
   {

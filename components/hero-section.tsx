@@ -12,12 +12,14 @@ import {
   Database,
   FileJson,
   FileText,
+  Gauge,
   GitPullRequest,
   LoaderCircle,
   Play,
   Radar,
   SearchCheck,
   ShieldCheck,
+  Sparkles,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InteractiveSurface } from "@/components/interactive-surface"
@@ -45,10 +47,24 @@ const productLinks = {
     label: "Testar demonstração do Argus Sentinel",
     ctaClass: "border-[#8b7cf6]/20 bg-[#8b7cf6]/[0.055] text-[#8b7cf6] hover:border-[#8b7cf6]/45",
   },
+  delegometro: {
+    href: "/produtos/delegometro",
+    label: "Testar demonstração do Delegômetro",
+    ctaClass: "border-[#f47c6b]/20 bg-[#f47c6b]/[0.055] text-[#f47c6b] hover:border-[#f47c6b]/45",
+  },
 } as const
 
+type ProductKey = keyof typeof productLinks
+
+const productTabs: Array<{ key: ProductKey; label: string; activeClass: string }> = [
+  { key: "wiki", label: "AI Wiki", activeClass: "bg-accent/15 text-accent" },
+  { key: "finops", label: "FinOps", activeClass: "bg-[#f5b84b]/15 text-[#f5b84b]" },
+  { key: "argus", label: "Argus", activeClass: "bg-[#8b7cf6]/15 text-[#8b7cf6]" },
+  { key: "delegometro", label: "Delegômetro", activeClass: "bg-[#f47c6b]/15 text-[#f47c6b]" },
+]
+
 export function HeroSection() {
-  const [product, setProduct] = useState<"wiki" | "finops" | "argus">("wiki")
+  const [product, setProduct] = useState<ProductKey>("wiki")
 
   return (
     <section className="relative min-h-screen overflow-hidden pt-24 md:pt-28">
@@ -94,28 +110,17 @@ export function HeroSection() {
                   <p className="font-heading text-sm font-semibold">Veja os produtos em ação</p>
                   <p className="mt-1 font-mono text-[11px] text-muted-foreground">Demonstração com dados simulados</p>
                 </div>
-                <div className="grid grid-cols-3 rounded-xl bg-background/70 p-1">
-                  <button
-                    onClick={() => setProduct("wiki")}
-                    aria-pressed={product === "wiki"}
-                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === "wiki" ? "bg-accent/15 text-accent" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    AI Wiki
-                  </button>
-                  <button
-                    onClick={() => setProduct("finops")}
-                    aria-pressed={product === "finops"}
-                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === "finops" ? "bg-[#f5b84b]/15 text-[#f5b84b]" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    FinOps
-                  </button>
-                  <button
-                    onClick={() => setProduct("argus")}
-                    aria-pressed={product === "argus"}
-                    className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === "argus" ? "bg-[#8b7cf6]/15 text-[#8b7cf6]" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    Argus
-                  </button>
+                <div className="grid grid-cols-2 rounded-xl bg-background/70 p-1 min-[420px]:grid-cols-4">
+                  {productTabs.map((tab) => (
+                    <button
+                      key={tab.key}
+                      onClick={() => setProduct(tab.key)}
+                      aria-pressed={product === tab.key}
+                      className={`rounded-lg px-2 py-2 text-xs font-medium transition-colors ${product === tab.key ? tab.activeClass : "text-muted-foreground hover:text-foreground"}`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -128,6 +133,9 @@ export function HeroSection() {
                 </div>
                 <div className={product === "argus" ? "block" : "hidden"} aria-hidden={product !== "argus"}>
                   <ArgusPreview />
+                </div>
+                <div className={product === "delegometro" ? "block" : "hidden"} aria-hidden={product !== "delegometro"}>
+                  <DelegometroPreview />
                 </div>
               </div>
 
@@ -451,6 +459,94 @@ function ArgusPreview() {
                 <p className="text-xs font-medium">Correção assistida por IA</p>
                 <p className="mt-1 text-xs leading-5 text-muted-foreground">
                   Execute o Auto-Fix para ver o Argus diagnosticar a falha e propor uma correção.
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DelegometroPreview() {
+  const [state, setState] = useState<"idle" | "coaching" | "done">("idle")
+
+  useEffect(() => {
+    if (state !== "coaching") return
+    const timer = window.setTimeout(() => setState("done"), 900)
+    return () => window.clearTimeout(timer)
+  }, [state])
+
+  function runCoach() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setState("done")
+      return
+    }
+    setState("coaching")
+  }
+
+  return (
+    <div className="grid gap-4">
+      <div className="flex items-center gap-3 rounded-xl border border-[#f47c6b]/20 bg-[#f47c6b]/[0.055] p-4">
+        <Sparkles className="size-5 shrink-0 text-[#f47c6b]" />
+        <div className="min-w-0 flex-1">
+          <p className="text-xs text-muted-foreground">Delegação de exemplo</p>
+          <p className="mt-1 text-sm font-medium">Apresentação de resultados do mês — Ana Souza</p>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-white/10 bg-background/55 p-5" aria-live="polite">
+        <div className="flex items-center gap-3">
+          {state === "coaching" ? (
+            <LoaderCircle className="size-5 animate-spin text-[#f47c6b]" />
+          ) : (
+            <Gauge className="size-5 text-[#f47c6b]" />
+          )}
+          <div>
+            <p className="text-sm font-medium">
+              {state === "done" ? "Acordo montado" : state === "coaching" ? "Coach organizando o acordo…" : "Pronto para delegar"}
+            </p>
+            <p className="mt-1 font-mono text-[10px] text-muted-foreground">Metodologia CASAR · Coach com IA</p>
+          </div>
+        </div>
+        {state === "done" && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            <span className="rounded-lg border border-[#f47c6b]/20 bg-background/30 px-2.5 py-2 font-mono text-[10px] text-[#ffb3a6]">N3 · Propor</span>
+            <span className="rounded-lg border border-[#f47c6b]/20 bg-background/30 px-2.5 py-2 font-mono text-[10px] text-[#ffb3a6]">Checkpoint na quarta</span>
+            <span className="rounded-lg border border-[#f47c6b]/20 bg-background/30 px-2.5 py-2 font-mono text-[10px] text-[#ffb3a6]">Entrega na sexta</span>
+          </div>
+        )}
+        <Button className="mt-5 w-full border-[#f47c6b]/25 text-[#f47c6b] hover:bg-[#f47c6b]/10 hover:text-[#ffb3a6]" variant="outline" onClick={runCoach} disabled={state === "coaching"}>
+          {state === "coaching" ? <LoaderCircle className="animate-spin" /> : <Sparkles />}
+          {state === "done" ? "Montar novamente" : state === "coaching" ? "Montando acordo…" : "Montar acordo com o Coach"}
+        </Button>
+      </div>
+
+      <div className={`rounded-xl border p-4 transition-colors ${
+        state === "done"
+          ? "border-[#f47c6b]/30 bg-[#f47c6b]/[0.07]"
+          : "border-white/10 bg-white/[0.025]"
+      }`}>
+        <div className="flex items-start gap-3">
+          <Gauge className="mt-0.5 size-5 shrink-0 text-[#f47c6b]" />
+          <div className="min-w-0 flex-1">
+            {state === "done" ? (
+              <>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="font-mono text-[9px] uppercase tracking-wider text-[#f47c6b]">Meu Delegômetro</p>
+                  <span className="rounded-full bg-[#f47c6b]/10 px-2.5 py-1 font-mono text-[9px] text-[#f47c6b]">Líder Multiplicador</span>
+                </div>
+                <p className="mt-2 font-heading text-2xl font-semibold">72<span className="text-sm font-normal text-muted-foreground"> de 100</span></p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Cada delegação alimenta o indicador de autonomia do time e mostra quem está pronto para assumir mais.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-xs font-medium">Delegação que desenvolve pessoas</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Monte o acordo para ver o Coach sugerir o nível de autonomia e os checkpoints.
                 </p>
               </>
             )}

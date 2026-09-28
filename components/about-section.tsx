@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal"
 const stats = [
   { value: "15+", label: "anos de experiência da equipe" },
   { value: "100+", label: "projetos conduzidos" },
-  { value: "2", label: "produtos próprios" },
+  { value: "4", label: "produtos próprios" },
 ]
 
 const principles = [

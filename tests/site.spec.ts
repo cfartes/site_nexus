@@ -17,9 +17,10 @@ test("menu mobile abre e navega", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto("/")
   await page.getByRole("button", { name: "Abrir menu" }).click()
-  const mobileNav = page.locator("header nav").last()
-  await expect(mobileNav.getByRole("link", { name: "Produtos", exact: true })).toBeVisible()
-  await mobileNav.getByRole("link", { name: "Produtos", exact: true }).click()
+  const mobileNav = page.locator("#menu-mobile")
+  await mobileNav.getByRole("button", { name: "Produtos" }).click()
+  await expect(mobileNav.getByRole("link", { name: "Delegômetro" })).toBeVisible()
+  await mobileNav.getByRole("link", { name: "Ver todos os produtos" }).click()
   await expect(page.locator("#produtos")).toBeInViewport()
 })
 
@@ -173,10 +174,12 @@ test("menu mobile leva à frente industrial", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto("/")
   await page.getByRole("button", { name: "Abrir menu" }).click()
-  await page.locator("#menu-mobile").getByRole("link", { name: "Indústria", exact: true }).click()
+  await page.locator("#menu-mobile").getByRole("button", { name: "Indústria" }).click()
+  await page.locator("#menu-mobile").getByRole("link", { name: "Automação Industrial", exact: true }).click()
   await expect(page).toHaveURL(/\/automacao-industrial$/)
   await page.getByRole("button", { name: "Abrir menu" }).click()
-  await expect(page.locator("#menu-mobile").getByRole("link", { name: "Indústria", exact: true })).toHaveAttribute("aria-current", "page")
+  await page.locator("#menu-mobile").getByRole("button", { name: "Indústria" }).click()
+  await expect(page.locator("#menu-mobile").getByRole("link", { name: "Automação Industrial", exact: true })).toHaveAttribute("aria-current", "page")
 })
 
 test("home destaca visão computacional e AI Wiki industrial", async ({ page }) => {
@@ -243,4 +246,95 @@ test("página industrial apresenta MES, Cyber OT e agentes de IA com links no ro
   await page.locator("footer").getByRole("link", { name: "Cyber OT" }).click()
   await expect(page).toHaveURL(/\/automacao-industrial#cyber-ot$/)
   await expect(page.locator("#cyber-ot")).toBeInViewport()
+})
+
+test("Delegômetro aparece nos produtos e a demonstração funciona", async ({ page }) => {
+  await page.goto("/")
+  const card = page.locator("#produtos").getByRole("link", { name: "Testar demonstração" }).nth(3)
+  await expect(card).toHaveAttribute("href", "/produtos/delegometro")
+  await card.click()
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Delegômetro")
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://nexusdataanalytics.com.br/produtos/delegometro")
+
+  for (let i = 0; i < 3; i += 1) await page.getByRole("button", { name: "Continuar conversa" }).click()
+  await expect(page.getByText("Acordo montado")).toBeVisible()
+
+  await page.getByRole("button", { name: "Escala de autonomia" }).click()
+  await page.getByRole("button", { name: "Nível 4: Decidir e informar" }).click()
+  await expect(page.getByText("“Tome a decisão e depois me informe.”")).toBeVisible()
+
+  await page.getByRole("button", { name: "Meu Delegômetro" }).click()
+  await expect(page.getByRole("img", { name: /Delegômetro 72 de 100/ })).toBeVisible()
+  await expect(page.getByText("Ambiente demonstrativo.", { exact: false })).toBeVisible()
+})
+
+test("formulário do Delegômetro já vem com o interesse selecionado", async ({ page }) => {
+  let payload: Record<string, unknown> = {}
+  await page.route("**/api/contact", async (route) => {
+    payload = route.request().postDataJSON()
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) })
+  })
+  await page.goto("/produtos/delegometro#contato")
+  await expect(page.getByLabel("Interesse")).toContainText("Delegômetro")
+  await page.getByLabel("Nome completo").fill("Pessoa Teste")
+  await page.getByLabel("E-mail").fill("teste@example.com")
+  await page.getByLabel("Como podemos ajudar?").fill("Queremos uma demonstração para nossos líderes.")
+  await page.getByRole("button", { name: "Enviar mensagem" }).click()
+  await expect(page.getByRole("heading", { name: "Mensagem enviada" })).toBeVisible()
+  expect(payload).toMatchObject({ interest: "delegometro", sourcePage: "/produtos/delegometro" })
+})
+
+test("hero demonstra o Delegômetro", async ({ page }) => {
+  await page.goto("/")
+  await page.getByRole("button", { name: "Delegômetro", exact: true }).click()
+  await page.getByRole("button", { name: "Montar acordo com o Coach" }).click()
+  await expect(page.getByText("Acordo montado")).toBeVisible()
+  await expect(page.getByRole("link", { name: "Testar demonstração do Delegômetro" })).toHaveAttribute("href", "/produtos/delegometro")
+})
+
+test("menu desktop abre dropdowns e leva às páginas de serviço", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 900 })
+  await page.goto("/")
+  const nav = page.getByRole("navigation", { name: "Principal" })
+  await nav.getByRole("button", { name: "Serviços" }).click()
+  await expect(nav.getByRole("link", { name: /Governança de Dados/ })).toBeVisible()
+  await nav.getByRole("link", { name: /Fábrica de Software/ }).click()
+  await expect(page).toHaveURL(/\/servicos\/fabrica-de-software$/)
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Fábrica de Software")
+  await expect(nav.getByRole("button", { name: "Serviços" })).toHaveAttribute("aria-current", "page")
+
+  await nav.getByRole("button", { name: "Produtos" }).click()
+  await nav.getByRole("link", { name: /Delegômetro/ }).click()
+  await expect(page).toHaveURL(/\/produtos\/delegometro$/)
+
+  await page.goto("/")
+  await nav.getByRole("button", { name: "Serviços" }).click()
+  await expect(nav.getByRole("link", { name: /Aplicações personalizadas/ })).toHaveCount(0)
+  await nav.getByRole("link", { name: /Governança de Dados/ }).click()
+  await expect(page).toHaveURL(/\/servicos\/dados-e-ia#governanca$/)
+  await expect(page.locator("#governanca")).toBeInViewport()
+
+  await nav.getByRole("button", { name: "Serviços" }).click()
+  await nav.getByRole("link", { name: /CTO as a Service/ }).click()
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("CTO as a Service")
+})
+
+for (const service of [
+  { path: "/servicos/outsourcing-de-ti", h1: "Outsourcing de TI", interest: "Outsourcing de TI" },
+  { path: "/servicos/fabrica-de-software", h1: "Fábrica de Software", interest: "Fábrica de Software" },
+  { path: "/servicos/dados-e-ia", h1: "Dados e Inteligência Artificial", interest: "Consultoria em Dados e IA" },
+  { path: "/servicos/cto-as-a-service", h1: "CTO as a Service", interest: "CTO as a Service" },
+]) {
+  test(`página ${service.path} tem H1, canonical e formulário com interesse`, async ({ page }) => {
+    await page.goto(service.path)
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(service.h1)
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://nexusdataanalytics.com.br${service.path}`)
+    await expect(page.getByLabel("Interesse")).toContainText(service.interest)
+  })
+}
+
+test("CTO as a Service identifica o diagnóstico como exemplo ilustrativo", async ({ page }) => {
+  await page.goto("/servicos/cto-as-a-service#diagnostico")
+  await expect(page.getByText("Exemplo ilustrativo")).toBeVisible()
+  await expect(page.getByRole("row", { name: /Dados & Analytics/ })).toContainText("1,9")
 })

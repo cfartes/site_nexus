@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { industrialPages } from "@/lib/industrial-pages"
 
 type Cta = { href: string; label: string }
+type Crumb = { href: string; label: string }
 
 export function IndustrialPageHero({
   eyebrow,
@@ -14,6 +15,7 @@ export function IndustrialPageHero({
   primaryCta,
   secondaryCta,
   breadcrumb,
+  breadcrumbParent = { href: industrialPages.hub.href, label: industrialPages.hub.shortName },
   aside,
 }: {
   eyebrow: string
@@ -23,6 +25,8 @@ export function IndustrialPageHero({
   primaryCta: Cta
   secondaryCta?: Cta
   breadcrumb?: string
+  /** Nível intermediário da trilha; por padrão, a página principal da frente industrial. */
+  breadcrumbParent?: Crumb
   aside?: ReactNode
 }) {
   return (
@@ -40,8 +44,8 @@ export function IndustrialPageHero({
               </li>
               <li aria-hidden="true"><ChevronRight className="size-3.5" /></li>
               <li>
-                <Link href={industrialPages.hub.href} className="transition-colors hover:text-primary">
-                  {industrialPages.hub.shortName}
+                <Link href={breadcrumbParent.href} className="transition-colors hover:text-primary">
+                  {breadcrumbParent.label}
                 </Link>
               </li>
               <li aria-hidden="true"><ChevronRight className="size-3.5" /></li>
