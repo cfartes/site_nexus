@@ -2,18 +2,24 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { industrialPages } from "@/lib/industrial-pages"
 
 const navLinks = [
   { href: "/#servicos", label: "Serviços" },
   { href: "/#produtos", label: "Produtos" },
+  { href: industrialPages.hub.href, label: "Indústria" },
   { href: "/#sobre", label: "Sobre" },
   { href: "/#contato", label: "Contato" },
 ]
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isIndustrialPage = Object.values(industrialPages).some((page) => page.href === pathname)
+  const isCurrent = (href: string) => href === industrialPages.hub.href && isIndustrialPage
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/75 backdrop-blur-xl">
@@ -26,12 +32,13 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Principal">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                aria-current={isCurrent(link.href) ? "page" : undefined}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-primary"
               >
                 {link.label}
               </Link>
@@ -50,20 +57,23 @@ export function Header() {
           <button
             className="md:hidden inline-flex size-10 items-center justify-center rounded-md border border-white/10 text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Abrir menu"
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="menu-mobile"
           >
             {isMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden border-t border-white/10 py-4">
-            <nav className="flex flex-col gap-4">
+          <div id="menu-mobile" className="md:hidden border-t border-white/10 py-4">
+            <nav className="flex flex-col gap-4" aria-label="Menu">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  aria-current={isCurrent(link.href) ? "page" : undefined}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-primary"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}

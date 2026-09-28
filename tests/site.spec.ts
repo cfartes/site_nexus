@@ -141,3 +141,106 @@ test("honeypot responde sem disparar envio", async ({ request }) => {
   expect(response.status()).toBe(200)
   await expect(response.json()).resolves.toEqual({ ok: true })
 })
+
+const industrialRoutes = [
+  { path: "/automacao-industrial", h1: "Automação Industrial & Indústria 4.0", cta: "Conversar sobre minha operação" },
+  { path: "/dados-industriais", h1: "Dados & Inteligência Industrial", cta: "Avaliar os dados da minha operação" },
+  { path: "/visao-computacional-industrial", h1: "Visão Computacional para a Indústria", cta: "Avaliar uma aplicação de visão computacional" },
+  { path: "/ai-wiki-industrial", h1: "AI Wiki para a Indústria", cta: "Solicitar demonstração do AI Wiki" },
+]
+
+for (const route of industrialRoutes) {
+  test(`página ${route.path} tem H1 único, canonical e CTA para o contato`, async ({ page }) => {
+    for (const viewport of [{ width: 390, height: 844 }, { width: 1366, height: 900 }]) {
+      await page.setViewportSize(viewport)
+      await page.goto(route.path)
+      await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1)
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText(route.h1)
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://nexusdataanalytics.com.br${route.path}`)
+      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", `https://nexusdataanalytics.com.br${route.path}`)
+      const dimensions = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }))
+      expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth)
+    }
+    await page.getByRole("link", { name: route.cta }).first().click()
+    await expect(page.locator("#contato")).toBeInViewport()
+  })
+}
+
+test("menu mobile leva à frente industrial", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto("/")
+  await page.getByRole("button", { name: "Abrir menu" }).click()
+  await page.locator("#menu-mobile").getByRole("link", { name: "Indústria", exact: true }).click()
+  await expect(page).toHaveURL(/\/automacao-industrial$/)
+  await page.getByRole("button", { name: "Abrir menu" }).click()
+  await expect(page.locator("#menu-mobile").getByRole("link", { name: "Indústria", exact: true })).toHaveAttribute("aria-current", "page")
+})
+
+test("home destaca visão computacional e AI Wiki industrial", async ({ page }) => {
+  await page.goto("/")
+  const section = page.locator("#industria")
+  await expect(section.getByRole("heading", { name: "Inteligência artificial aplicada à operação industrial" })).toBeVisible()
+  await expect(section.getByRole("link", { name: "Conhecer Visão Computacional" })).toHaveAttribute("href", "/visao-computacional-industrial")
+  await expect(section.getByRole("link", { name: "Conhecer AI Wiki Industrial" })).toHaveAttribute("href", "/ai-wiki-industrial")
+  await section.getByRole("link", { name: /Conhecer a frente de Automação Industrial/ }).click()
+  await expect(page).toHaveURL(/\/automacao-industrial$/)
+})
+
+test("demonstrações industriais são identificadas e interativas", async ({ page }) => {
+  await page.goto("/dados-industriais")
+  await expect(page.getByText("Dados demonstrativos")).toBeVisible()
+  await page.getByRole("button", { name: "Gestão" }).click()
+  await expect(page.getByText("Tempo perdido por motivo (% do total)")).toBeVisible()
+
+  await page.goto("/visao-computacional-industrial")
+  await expect(page.getByText("Demonstração ilustrativa — não representa uma inspeção real.")).toBeVisible()
+  await page.getByRole("button", { name: "Ocultar marcações" }).click()
+  await expect(page.getByRole("button", { name: "Mostrar marcações" })).toHaveAttribute("aria-pressed", "false")
+
+  await page.goto("/ai-wiki-industrial")
+  await expect(page.getByText("Exemplo ilustrativo — pergunta, resposta e documento fictícios.")).toBeVisible()
+})
+
+test("formulário da visão computacional envia interesse, pergunta opcional e página de origem", async ({ page }) => {
+  let payload: Record<string, unknown> = {}
+  await page.route("**/api/contact", async (route) => {
+    payload = route.request().postDataJSON()
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) })
+  })
+
+  await page.goto("/visao-computacional-industrial#contato")
+  await expect(page.getByLabel("Interesse")).toContainText("Visão Computacional")
+  await page.getByLabel("Nome completo").fill("Pessoa Teste")
+  await page.getByLabel("E-mail").fill("teste@example.com")
+  await page.getByLabel(/O que você gostaria de inspecionar/).fill("Acabamento de peças plásticas")
+  await page.getByLabel("Qual é o seu desafio?").fill("Queremos padronizar a inspeção visual do acabamento.")
+  await page.getByRole("button", { name: "Enviar mensagem" }).click()
+  await expect(page.getByRole("heading", { name: "Mensagem enviada" })).toBeVisible()
+  expect(payload).toMatchObject({
+    interest: "visao-computacional",
+    inspectionTarget: "Acabamento de peças plásticas",
+    sourcePage: "/visao-computacional-industrial",
+  })
+})
+
+test("endpoint rejeita interesse desconhecido", async ({ request }) => {
+  const invalid = await request.post("/api/contact", {
+    data: { name: "Pessoa", email: "p@example.com", interest: "inexistente", message: "Mensagem de teste válida." },
+  })
+  expect(invalid.status()).toBe(422)
+})
+
+test("página industrial apresenta MES, Cyber OT e agentes de IA com links no rodapé", async ({ page }) => {
+  await page.goto("/automacao-industrial")
+  await expect(page.locator("#mes").getByRole("heading", { level: 2 })).toContainText("otimização da produção com MES")
+  await expect(page.locator("#cyber-ot").getByRole("heading", { level: 2 })).toContainText("ameaças cibernéticas")
+  await expect(page.locator("#agentes-ia").getByRole("heading", { name: "Agentes de IA" })).toBeVisible()
+
+  await page.goto("/")
+  await page.locator("footer").getByRole("link", { name: "Cyber OT" }).click()
+  await expect(page).toHaveURL(/\/automacao-industrial#cyber-ot$/)
+  await expect(page.locator("#cyber-ot")).toBeInViewport()
+})

@@ -1,12 +1,16 @@
 import type { MetadataRoute } from "next"
-
-const baseUrl = "https://nexusdataanalytics.com.br"
+import { industrialPages } from "@/lib/industrial-pages"
+import { siteUrl as baseUrl } from "@/lib/seo"
 
 const routes: Array<{ path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }> = [
   { path: "", priority: 1, changeFrequency: "monthly" },
   { path: "/produtos/ai-wiki", priority: 0.8, changeFrequency: "monthly" },
   { path: "/produtos/finops", priority: 0.8, changeFrequency: "monthly" },
   { path: "/produtos/argus", priority: 0.8, changeFrequency: "monthly" },
+  { path: industrialPages.hub.href, priority: 0.9, changeFrequency: "monthly" },
+  { path: industrialPages.vision.href, priority: 0.8, changeFrequency: "monthly" },
+  { path: industrialPages.wiki.href, priority: 0.8, changeFrequency: "monthly" },
+  { path: industrialPages.data.href, priority: 0.8, changeFrequency: "monthly" },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

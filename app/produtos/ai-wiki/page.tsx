@@ -23,7 +23,10 @@ export default function AiWikiPage() {
           <p className="mt-12 font-mono text-xs uppercase tracking-[0.18em] text-accent">Demonstração interativa</p>
           <h1 className="font-heading mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">AI Wiki</h1>
           <p className="mb-10 mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-            Experimente como documentos internos podem se transformar em respostas claras e rastreáveis.
+            Experimente como documentos internos podem se transformar em respostas claras e rastreáveis.{" "}
+            <Link href="/ai-wiki-industrial" className="text-accent underline-offset-4 hover:underline">
+              Veja também a aplicação na indústria.
+            </Link>
           </p>
           <WikiDemo />
         </div>
