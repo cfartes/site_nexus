@@ -1,13 +1,16 @@
 import Link from "next/link"
 import { industrialPages } from "@/lib/industrial-pages"
+import { servicePages } from "@/lib/navigation"
 
 const linkGroups = [
   {
-    title: "Nexus",
+    title: "Serviços",
     links: [
-      { label: "Serviços", href: "/#servicos" },
-      { label: "Produtos", href: "/#produtos" },
-      { label: "Sobre", href: "/#sobre" },
+      { label: servicePages.dataAi.label, href: servicePages.dataAi.href },
+      { label: servicePages.cto.label, href: servicePages.cto.href },
+      { label: servicePages.softwareFactory.label, href: servicePages.softwareFactory.href },
+      { label: servicePages.outsourcing.label, href: servicePages.outsourcing.href },
+      { label: "Sobre a Nexus", href: "/#sobre" },
       { label: "Contato", href: "/#contato" },
     ],
   },
@@ -17,6 +20,7 @@ const linkGroups = [
       { label: "AI Wiki", href: "/produtos/ai-wiki" },
       { label: "FinOps Intelligence", href: "/produtos/finops" },
       { label: "Argus Sentinel", href: "/produtos/argus" },
+      { label: "Delegômetro", href: "/produtos/delegometro" },
     ],
   },
   {

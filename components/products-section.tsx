@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, BookOpen, Cloud, GitPullRequest, Lock, Radar, ShieldCheck, Sparkles } from "lucide-react"
+import { ArrowRight, BookOpen, Cloud, Gauge, GitPullRequest, Lock, Radar, ShieldCheck, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { InteractiveSurface } from "@/components/interactive-surface"
 import { Reveal } from "@/components/reveal"
@@ -59,6 +59,24 @@ const products = [
       { label: "Auto-Fix com proposta de PR", meta: "IA" },
     ],
   },
+  {
+    name: "Delegômetro",
+    eyebrow: "Desenvolvimento de liderança",
+    description: "Transforme cada delegação em desenvolvimento: líderes delegam com a metodologia CASAR, contam com um Coach de IA e acompanham a autonomia do time.",
+    href: "/produtos/delegometro",
+    accent: "#f47c6b",
+    icon: Gauge,
+    features: [
+      { icon: Sparkles, text: "Coach de Delegação com IA" },
+      { icon: ShieldCheck, text: "Controles de LGPD e verificação em duas etapas" },
+    ],
+    previewTitle: "O que você pode testar",
+    preview: [
+      { label: "Conversa com o Coach", meta: "CASAR" },
+      { label: "Escala de autonomia", meta: "5 níveis" },
+      { label: "Painel Meu Delegômetro", meta: "5 dimensões" },
+    ],
+  },
 ]
 
 export function ProductsSection() {
@@ -80,7 +98,7 @@ export function ProductsSection() {
           </p>
         </Reveal>
 
-        <div className="grid gap-5 md:grid-cols-2 2xl:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2">
           {products.map((product, index) => (
             <Reveal key={product.name} delay={index * 80}>
               <InteractiveSurface accent={product.accent} className="flex h-full flex-col rounded-[1.25rem] border border-white/10 bg-card/70 p-6 sm:p-8">
