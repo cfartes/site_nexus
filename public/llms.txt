@@ -1,0 +1,33 @@
+# Nexus Data Analytics
+
+> Consultoria brasileira em Data & Analytics, Inteligência Artificial, Governança de Dados, Automação Industrial e desenvolvimento de software. Atende empresas em todo o Brasil e tem produtos SaaS próprios: AI Wiki, FinOps Intelligence, Argus Sentinel e Delegômetro.
+
+A Nexus ajuda empresas a transformar dados em decisões confiáveis, conectando estratégia, tecnologia e operação. Atua com consultoria, projetos sob medida, liderança de tecnologia e produtos próprios.
+
+Contato comercial: comercial@nexusdataanalytics.com.br · WhatsApp (48) 3197-8198 · https://wa.me/554831978198
+
+## Serviços
+
+- [Dados e IA](https://nexusdataanalytics.com.br/servicos/dados-e-ia): Governança de Dados, Engenharia de Dados, Analytics & DataViz e Ciência de Dados e IA.
+- [CTO as a Service](https://nexusdataanalytics.com.br/servicos/cto-as-a-service): assessment executivo, estratégia de tecnologia, roadmap de transformação e liderança fracionada.
+- [Fábrica de Software](https://nexusdataanalytics.com.br/servicos/fabrica-de-software): sistemas web sob medida, aplicativos mobile, integrações e APIs, e manutenção evolutiva.
+- [Outsourcing de TI](https://nexusdataanalytics.com.br/servicos/outsourcing-de-ti): alocação de profissionais, squads dedicados, sustentação de sistemas e suporte e infraestrutura.
+
+## Indústria
+
+- [Automação Industrial & Indústria 4.0](https://nexusdataanalytics.com.br/automacao-industrial): arquitetura de automação, MES, Cyber OT, conectividade e integração com sistemas de gestão.
+- [Visão Computacional para a Indústria](https://nexusdataanalytics.com.br/visao-computacional-industrial): inspeção de qualidade, conferência de montagem, rotulagem e rastreabilidade com câmeras e IA.
+- [AI Wiki para a Indústria](https://nexusdataanalytics.com.br/ai-wiki-industrial): consulta com IA a manuais de equipamentos, procedimentos operacionais e documentação técnica.
+- [Dados & Inteligência Industrial](https://nexusdataanalytics.com.br/dados-industriais): indicadores de produção, paradas, perdas, consumo energético e OEE com rastreabilidade.
+
+## Produtos
+
+- [AI Wiki](https://nexusdataanalytics.com.br/produtos/ai-wiki): transforma políticas, manuais e processos internos em respostas rastreáveis, com acesso às fontes.
+- [FinOps Intelligence](https://nexusdataanalytics.com.br/produtos/finops): reúne custos de nuvem (Azure, AWS, GCP), investiga variações e prioriza otimizações.
+- [Argus Sentinel](https://nexusdataanalytics.com.br/produtos/argus): torre de controle para Microsoft Fabric e Power BI; monitora capacidades e falhas e propõe correções com IA, com aprovação humana.
+- [Delegômetro](https://nexusdataanalytics.com.br/produtos/delegometro): delegação que desenvolve líderes, com a metodologia CASAR, Coach de Delegação com IA, relatórios para o RH e controles de LGPD.
+
+## Opcional
+
+- [Página inicial](https://nexusdataanalytics.com.br/): visão geral da Nexus, serviços, produtos e contato.
+- [Sitemap](https://nexusdataanalytics.com.br/sitemap.xml)

@@ -1,3 +1,10 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Obrigado | Nexus Data Analytics",
+  robots: { index: false, follow: false },
+}
+
 export default function AgradecimentoPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-6">

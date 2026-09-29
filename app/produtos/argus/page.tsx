@@ -1,14 +1,15 @@
-import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ArgusDemo } from "@/components/argus-demo"
+import { buildPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
+  path: "/produtos/argus",
   title: "Demonstração Argus Sentinel | Nexus Data Analytics",
   description: "Explore uma demonstração com dados simulados do Argus Sentinel, a torre de controle para ambientes Microsoft Fabric e Power BI.",
-}
+})
 
 export default function ArgusPage() {
   return (

@@ -1,14 +1,15 @@
-import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { FinOpsDemo } from "@/components/finops-demo"
+import { buildPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
+  path: "/produtos/finops",
   title: "Demonstração FinOps Intelligence | Nexus Data Analytics",
   description: "Explore uma demonstração com dados simulados do FinOps Intelligence da Nexus.",
-}
+})
 
 export default function FinOpsPage() {
   return (
