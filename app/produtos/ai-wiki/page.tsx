@@ -1,14 +1,15 @@
-import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { WikiDemo } from "@/components/wiki-demo"
+import { buildPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
+  path: "/produtos/ai-wiki",
   title: "Demonstração AI Wiki | Nexus Data Analytics",
   description: "Explore uma demonstração com dados simulados do AI Wiki da Nexus.",
-}
+})
 
 export default function AiWikiPage() {
   return (
