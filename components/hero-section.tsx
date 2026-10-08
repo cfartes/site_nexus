@@ -47,9 +47,9 @@ const productLinks = {
     label: "Testar demonstração do Argus Sentinel",
     ctaClass: "border-[#8b7cf6]/20 bg-[#8b7cf6]/[0.055] text-[#8b7cf6] hover:border-[#8b7cf6]/45",
   },
-  delegometro: {
-    href: "/produtos/delegometro",
-    label: "Testar demonstração do Delegômetro",
+  amplify: {
+    href: "/produtos/nexus-amplify",
+    label: "Testar demonstração do Nexus Amplify",
     ctaClass: "border-[#f47c6b]/20 bg-[#f47c6b]/[0.055] text-[#f47c6b] hover:border-[#f47c6b]/45",
   },
 } as const
@@ -60,7 +60,7 @@ const productTabs: Array<{ key: ProductKey; label: string; activeClass: string }
   { key: "wiki", label: "AI Wiki", activeClass: "bg-accent/15 text-accent" },
   { key: "finops", label: "FinOps", activeClass: "bg-[#f5b84b]/15 text-[#f5b84b]" },
   { key: "argus", label: "Argus", activeClass: "bg-[#8b7cf6]/15 text-[#8b7cf6]" },
-  { key: "delegometro", label: "Delegômetro", activeClass: "bg-[#f47c6b]/15 text-[#f47c6b]" },
+  { key: "amplify", label: "Amplify", activeClass: "bg-[#f47c6b]/15 text-[#f47c6b]" },
 ]
 
 export function HeroSection() {
@@ -134,8 +134,8 @@ export function HeroSection() {
                 <div className={product === "argus" ? "block" : "hidden"} aria-hidden={product !== "argus"}>
                   <ArgusPreview />
                 </div>
-                <div className={product === "delegometro" ? "block" : "hidden"} aria-hidden={product !== "delegometro"}>
-                  <DelegometroPreview />
+                <div className={product === "amplify" ? "block" : "hidden"} aria-hidden={product !== "amplify"}>
+                  <NexusAmplifyPreview />
                 </div>
               </div>
 
@@ -469,7 +469,7 @@ function ArgusPreview() {
   )
 }
 
-function DelegometroPreview() {
+function NexusAmplifyPreview() {
   const [state, setState] = useState<"idle" | "coaching" | "done">("idle")
 
   useEffect(() => {
@@ -534,7 +534,7 @@ function DelegometroPreview() {
             {state === "done" ? (
               <>
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="font-mono text-[9px] uppercase tracking-wider text-[#f47c6b]">Meu Delegômetro</p>
+                  <p className="font-mono text-[9px] uppercase tracking-wider text-[#f47c6b]">Índice de Delegação</p>
                   <span className="rounded-full bg-[#f47c6b]/10 px-2.5 py-1 font-mono text-[9px] text-[#f47c6b]">Líder Multiplicador</span>
                 </div>
                 <p className="mt-2 font-heading text-2xl font-semibold">72<span className="text-sm font-normal text-muted-foreground"> de 100</span></p>

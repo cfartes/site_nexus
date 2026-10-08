@@ -20,15 +20,15 @@ import {
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ContactSection } from "@/components/contact-section"
-import { DelegometroDemo } from "@/components/delegometro-demo"
+import { NexusAmplifyDemo } from "@/components/nexus-amplify-demo"
 import { Reveal } from "@/components/reveal"
 import { buildPageMetadata } from "@/lib/seo"
 
 export const metadata = buildPageMetadata({
-  path: "/produtos/delegometro",
-  title: "Delegômetro | Nexus Data Analytics",
+  path: "/produtos/nexus-amplify",
+  title: "Nexus Amplify | Nexus Data Analytics",
   description:
-    "Delegômetro: delegação que desenvolve líderes, com a metodologia CASAR, Coach de Delegação com IA, relatórios para o RH e controles de LGPD. Explore a demonstração com dados simulados.",
+    "Nexus Amplify: delegação que desenvolve líderes, com a metodologia CASAR, Coach de Delegação com IA, relatórios para o RH e controles de LGPD. Explore a demonstração com dados simulados.",
 })
 
 const accent = "#f47c6b"
@@ -48,10 +48,10 @@ const casar = [
 ]
 
 const hrReports = [
-  { icon: UserCog, title: "Comparativo de líderes", text: "Delegômetro de cada líder, com alertas de delegações atrasadas e checkpoints vencidos." },
+  { icon: UserCog, title: "Comparativo de líderes", text: "Índice de Delegação de cada líder, com alertas de delegações atrasadas e checkpoints vencidos." },
   { icon: Network, title: "Mapa de sucessão", text: "Prontidão e autonomia de cada pessoa, por área e por líder." },
   { icon: Grid3x3, title: "Matriz de competências", text: "O que está sendo desenvolvido em cada área e o que ninguém está trabalhando." },
-  { icon: LineChart, title: "Evolução mês a mês", text: "Delegômetro médio, autonomia e foco em desenvolvimento da empresa ou de cada área." },
+  { icon: LineChart, title: "Evolução mês a mês", text: "Índice de Delegação médio, autonomia e foco em desenvolvimento da empresa ou de cada área." },
   { icon: FileText, title: "Relatório mensal", text: "Documento consolidado para a diretoria, pronto para imprimir ou salvar em PDF." },
 ]
 
@@ -101,7 +101,7 @@ function CardGrid({ items, columns = "lg:grid-cols-3" }: { items: Array<{ icon: 
   )
 }
 
-export default function DelegometroPage() {
+export default function NexusAmplifyPage() {
   return (
     <main className="min-h-screen">
       <Header />
@@ -112,12 +112,12 @@ export default function DelegometroPage() {
             <ArrowLeft className="size-4" /> Voltar aos produtos
           </Link>
           <p className="mt-12 font-mono text-xs uppercase tracking-[0.18em]" style={{ color: accent }}>Demonstração interativa</p>
-          <h1 className="font-heading mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Delegômetro</h1>
+          <h1 className="font-heading mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Nexus Amplify</h1>
           <p className="mb-10 mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
             Delegue tarefas e desenvolva pessoas. Cada delegação vira uma oportunidade de ampliar a autonomia do time e
             preparar novos líderes, com um Coach de IA e dados que mostram a evolução.
           </p>
-          <DelegometroDemo />
+          <NexusAmplifyDemo />
         </div>
       </section>
 
@@ -181,9 +181,9 @@ export default function DelegometroPage() {
 
       <ContactSection
         eyebrow="Próximo passo"
-        title="Leve o Delegômetro para a sua empresa."
+        title="Leve o Nexus Amplify para a sua empresa."
         description="A contratação é feita sob medida para o tamanho dos seus times, com implantação e acompanhamento da Nexus. Conte um pouco sobre a sua liderança e agende uma demonstração."
-        defaultInterest="delegometro"
+        defaultInterest="nexus-amplify"
         messagePlaceholder="Ex.: temos 40 líderes e queremos acompanhar a autonomia dos times e preparar sucessores."
       />
       <Footer />

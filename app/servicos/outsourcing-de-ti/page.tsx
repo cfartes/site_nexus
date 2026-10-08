@@ -148,7 +148,7 @@ export default function OutsourcingPage() {
         links={[
           { href: servicePages.softwareFactory.href, title: "Fábrica de Software", text: "Sistemas web, aplicativos mobile e integrações desenvolvidos sob medida." },
           { href: "/#servicos", title: "Serviços de dados e IA", text: "Governança, engenharia, analytics e ciência de dados aplicados ao negócio." },
-          { href: "/#produtos", title: "Produtos próprios", text: "AI Wiki, FinOps Intelligence, Argus Sentinel e Delegômetro." },
+          { href: "/#produtos", title: "Produtos próprios", text: "AI Wiki, FinOps Intelligence, Argus Sentinel e Nexus Amplify." },
         ]}
       />
 

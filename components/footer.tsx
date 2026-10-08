@@ -20,7 +20,7 @@ const linkGroups = [
       { label: "AI Wiki", href: "/produtos/ai-wiki" },
       { label: "FinOps Intelligence", href: "/produtos/finops" },
       { label: "Argus Sentinel", href: "/produtos/argus" },
-      { label: "Delegômetro", href: "/produtos/delegometro" },
+      { label: "Nexus Amplify", href: "/produtos/nexus-amplify" },
     ],
   },
   {

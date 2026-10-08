@@ -19,7 +19,7 @@ test("menu mobile abre e navega", async ({ page }) => {
   await page.getByRole("button", { name: "Abrir menu" }).click()
   const mobileNav = page.locator("#menu-mobile")
   await mobileNav.getByRole("button", { name: "Produtos" }).click()
-  await expect(mobileNav.getByRole("link", { name: "Delegômetro" })).toBeVisible()
+  await expect(mobileNav.getByRole("link", { name: "Nexus Amplify" })).toBeVisible()
   await mobileNav.getByRole("link", { name: "Ver todos os produtos" }).click()
   await expect(page.locator("#produtos")).toBeInViewport()
 })
@@ -248,13 +248,13 @@ test("página industrial apresenta MES, Cyber OT e agentes de IA com links no ro
   await expect(page.locator("#cyber-ot")).toBeInViewport()
 })
 
-test("Delegômetro aparece nos produtos e a demonstração funciona", async ({ page }) => {
+test("Nexus Amplify aparece nos produtos e a demonstração funciona", async ({ page }) => {
   await page.goto("/")
   const card = page.locator("#produtos").getByRole("link", { name: "Testar demonstração" }).nth(3)
-  await expect(card).toHaveAttribute("href", "/produtos/delegometro")
+  await expect(card).toHaveAttribute("href", "/produtos/nexus-amplify")
   await card.click()
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Delegômetro")
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://nexusdataanalytics.com.br/produtos/delegometro")
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Nexus Amplify")
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://nexusdataanalytics.com.br/produtos/nexus-amplify")
 
   for (let i = 0; i < 3; i += 1) await page.getByRole("button", { name: "Continuar conversa" }).click()
   await expect(page.getByText("Acordo montado")).toBeVisible()
@@ -263,33 +263,39 @@ test("Delegômetro aparece nos produtos e a demonstração funciona", async ({ p
   await page.getByRole("button", { name: "Nível 4: Decidir e informar" }).click()
   await expect(page.getByText("“Tome a decisão e depois me informe.”")).toBeVisible()
 
-  await page.getByRole("button", { name: "Meu Delegômetro" }).click()
-  await expect(page.getByRole("img", { name: /Delegômetro 72 de 100/ })).toBeVisible()
+  await page.getByRole("button", { name: "Índice de Delegação" }).click()
+  await expect(page.getByRole("img", { name: /Índice de Delegação 72 de 100/ })).toBeVisible()
   await expect(page.getByText("Ambiente demonstrativo.", { exact: false })).toBeVisible()
 })
 
-test("formulário do Delegômetro já vem com o interesse selecionado", async ({ page }) => {
+test("formulário do Nexus Amplify já vem com o interesse selecionado", async ({ page }) => {
   let payload: Record<string, unknown> = {}
   await page.route("**/api/contact", async (route) => {
     payload = route.request().postDataJSON()
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) })
   })
-  await page.goto("/produtos/delegometro#contato")
-  await expect(page.getByLabel("Interesse")).toContainText("Delegômetro")
+  await page.goto("/produtos/nexus-amplify#contato")
+  await expect(page.getByLabel("Interesse")).toContainText("Nexus Amplify")
   await page.getByLabel("Nome completo").fill("Pessoa Teste")
   await page.getByLabel("E-mail").fill("teste@example.com")
   await page.getByLabel("Como podemos ajudar?").fill("Queremos uma demonstração para nossos líderes.")
   await page.getByRole("button", { name: "Enviar mensagem" }).click()
   await expect(page.getByRole("heading", { name: "Mensagem enviada" })).toBeVisible()
-  expect(payload).toMatchObject({ interest: "delegometro", sourcePage: "/produtos/delegometro" })
+  expect(payload).toMatchObject({ interest: "nexus-amplify", sourcePage: "/produtos/nexus-amplify" })
 })
 
-test("hero demonstra o Delegômetro", async ({ page }) => {
+test("URL antiga do Delegômetro redireciona para o Nexus Amplify", async ({ request }) => {
+  const response = await request.get("/produtos/delegometro", { maxRedirects: 0 })
+  expect(response.status()).toBe(308)
+  expect(response.headers()["location"]).toBe("/produtos/nexus-amplify")
+})
+
+test("hero demonstra o Nexus Amplify", async ({ page }) => {
   await page.goto("/")
-  await page.getByRole("button", { name: "Delegômetro", exact: true }).click()
+  await page.getByRole("button", { name: "Amplify", exact: true }).click()
   await page.getByRole("button", { name: "Montar acordo com o Coach" }).click()
   await expect(page.getByText("Acordo montado")).toBeVisible()
-  await expect(page.getByRole("link", { name: "Testar demonstração do Delegômetro" })).toHaveAttribute("href", "/produtos/delegometro")
+  await expect(page.getByRole("link", { name: "Testar demonstração do Nexus Amplify" })).toHaveAttribute("href", "/produtos/nexus-amplify")
 })
 
 test("menu desktop abre dropdowns e leva às páginas de serviço", async ({ page }) => {
@@ -304,8 +310,8 @@ test("menu desktop abre dropdowns e leva às páginas de serviço", async ({ pag
   await expect(nav.getByRole("button", { name: "Serviços" })).toHaveAttribute("aria-current", "page")
 
   await nav.getByRole("button", { name: "Produtos" }).click()
-  await nav.getByRole("link", { name: /Delegômetro/ }).click()
-  await expect(page).toHaveURL(/\/produtos\/delegometro$/)
+  await nav.getByRole("link", { name: /Nexus Amplify/ }).click()
+  await expect(page).toHaveURL(/\/produtos\/nexus-amplify$/)
 
   await page.goto("/")
   await nav.getByRole("button", { name: "Serviços" }).click()

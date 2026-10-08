@@ -48,8 +48,8 @@ const products = [
     description: "Torre de controle para ambientes Microsoft Fabric e Power BI: monitora capacidades e falhas e usa IA para propor correções, com aprovação humana.",
   },
   {
-    name: "Delegômetro",
-    path: "/produtos/delegometro",
+    name: "Nexus Amplify",
+    path: "/produtos/nexus-amplify",
     category: "BusinessApplication",
     description: "Delegação que desenvolve líderes, com a metodologia CASAR, Coach de Delegação com IA, relatórios para o RH e controles de LGPD.",
   },

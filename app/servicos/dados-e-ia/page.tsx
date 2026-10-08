@@ -212,7 +212,7 @@ export default function DadosEIaPage() {
       <ServiceRelated
         links={[
           { href: servicePages.cto.href, title: "CTO as a Service", text: "Estratégia, roadmap e liderança de tecnologia conectados ao negócio." },
-          { href: "/#produtos", title: "Produtos próprios", text: "AI Wiki, FinOps Intelligence, Argus Sentinel e Delegômetro." },
+          { href: "/#produtos", title: "Produtos próprios", text: "AI Wiki, FinOps Intelligence, Argus Sentinel e Nexus Amplify." },
           { href: "/dados-industriais", title: "Dados Industriais", text: "Indicadores de produção, OEE e rastreabilidade para a indústria." },
         ]}
       />

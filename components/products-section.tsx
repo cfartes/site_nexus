@@ -60,10 +60,10 @@ const products = [
     ],
   },
   {
-    name: "Delegômetro",
+    name: "Nexus Amplify",
     eyebrow: "Desenvolvimento de liderança",
     description: "Transforme cada delegação em desenvolvimento: líderes delegam com a metodologia CASAR, contam com um Coach de IA e acompanham a autonomia do time.",
-    href: "/produtos/delegometro",
+    href: "/produtos/nexus-amplify",
     accent: "#f47c6b",
     icon: Gauge,
     features: [
@@ -74,7 +74,7 @@ const products = [
     preview: [
       { label: "Conversa com o Coach", meta: "CASAR" },
       { label: "Escala de autonomia", meta: "5 níveis" },
-      { label: "Painel Meu Delegômetro", meta: "5 dimensões" },
+      { label: "Índice de Delegação", meta: "5 dimensões" },
     ],
   },
 ]

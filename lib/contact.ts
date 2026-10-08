@@ -7,7 +7,7 @@ export const contactInterestGroups = [
       { value: "ai-wiki", label: "AI Wiki" },
       { value: "finops", label: "FinOps Intelligence" },
       { value: "argus", label: "Argus Sentinel" },
-      { value: "delegometro", label: "Delegômetro" },
+      { value: "nexus-amplify", label: "Nexus Amplify" },
       { value: "projeto-personalizado", label: "Projeto personalizado" },
       { value: "fabrica-de-software", label: "Fábrica de Software" },
       { value: "outsourcing-ti", label: "Outsourcing de TI" },

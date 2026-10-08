@@ -7,7 +7,7 @@ const routes: Array<{ path: string; priority: number; changeFrequency: MetadataR
   { path: "/produtos/ai-wiki", priority: 0.8, changeFrequency: "monthly" },
   { path: "/produtos/finops", priority: 0.8, changeFrequency: "monthly" },
   { path: "/produtos/argus", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/produtos/delegometro", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/produtos/nexus-amplify", priority: 0.8, changeFrequency: "monthly" },
   { path: "/servicos/dados-e-ia", priority: 0.8, changeFrequency: "monthly" },
   { path: "/servicos/cto-as-a-service", priority: 0.8, changeFrequency: "monthly" },
   { path: "/servicos/fabrica-de-software", priority: 0.8, changeFrequency: "monthly" },

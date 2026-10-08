@@ -13,8 +13,8 @@ const isVercelProduction = process.env.NODE_ENV === 'production' && process.env.
 export const metadata: Metadata = {
   metadataBase: new URL('https://nexusdataanalytics.com.br'),
   title: 'Nexus Data Analytics | Consultoria em Data & Analytics, IA e Governança de Dados',
-  description: 'Transforme seus dados em vantagem competitiva. Consultoria especializada em Governança de Dados, Engenharia de Dados, DataViz, Ciência de Dados e Inteligência Artificial. Conheça nossos produtos SaaS: AI Wiki, FinOps Intelligence, Argus Sentinel e Delegômetro.',
-  keywords: ['consultoria de dados', 'data analytics', 'governança de dados', 'engenharia de dados', 'ciência de dados', 'inteligência artificial', 'IA', 'dataviz', 'visualização de dados', 'FinOps', 'otimização de custos cloud', 'Azure', 'AWS', 'GCP', 'Delegômetro', 'desenvolvimento de liderança', 'delegação'],
+  description: 'Transforme seus dados em vantagem competitiva. Consultoria especializada em Governança de Dados, Engenharia de Dados, DataViz, Ciência de Dados e Inteligência Artificial. Conheça nossos produtos SaaS: AI Wiki, FinOps Intelligence, Argus Sentinel e Nexus Amplify.',
+  keywords: ['consultoria de dados', 'data analytics', 'governança de dados', 'engenharia de dados', 'ciência de dados', 'inteligência artificial', 'IA', 'dataviz', 'visualização de dados', 'FinOps', 'otimização de custos cloud', 'Azure', 'AWS', 'GCP', 'Nexus Amplify', 'desenvolvimento de liderança', 'delegação'],
   authors: [{ name: 'Nexus Data Analytics' }],
   creator: 'Nexus Data Analytics',
   publisher: 'Nexus Data Analytics',

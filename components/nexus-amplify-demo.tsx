@@ -13,7 +13,7 @@ type View = "coach" | "autonomia" | "painel"
 const views: Array<{ id: View; label: string }> = [
   { id: "coach", label: "Coach de Delegação" },
   { id: "autonomia", label: "Escala de autonomia" },
-  { id: "painel", label: "Meu Delegômetro" },
+  { id: "painel", label: "Índice de Delegação" },
 ]
 
 const conversation = [
@@ -48,7 +48,7 @@ const teamHighlights = [
   { icon: Network, title: "Sucessão", text: "2 pessoas prontas para assumir mais escopo" },
 ]
 
-export function DelegometroDemo() {
+export function NexusAmplifyDemo() {
   const [view, setView] = useState<View>("coach")
   const [visibleMessages, setVisibleMessages] = useState(1)
   const [level, setLevel] = useState(3)
@@ -63,7 +63,7 @@ export function DelegometroDemo() {
         <div className="flex flex-col gap-4 border-b border-white/10 pb-4 md:flex-row md:items-center md:justify-between">
           <p className="inline-flex items-center gap-2 font-heading font-semibold">
             <Gauge className="size-5" style={{ color: accent }} aria-hidden="true" />
-            Delegômetro
+            Nexus Amplify
           </p>
           <div className="grid grid-cols-3 rounded-xl bg-background/70 p-1" role="group" aria-label="Área da demonstração">
             {views.map((item) => (
@@ -175,7 +175,7 @@ export function DelegometroDemo() {
           {view === "painel" && (
             <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
               <div className="rounded-2xl border border-white/10 bg-background/60 p-5">
-                <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Meu Delegômetro</p>
+                <p className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">Índice de Delegação</p>
                 <div className="mt-4 flex flex-col items-center gap-6 sm:flex-row sm:items-center">
                   <ScoreGauge score={72} label="Líder Multiplicador" />
                   <dl className="grid w-full flex-1 gap-2.5">
@@ -224,7 +224,7 @@ function ScoreGauge({ score, label }: { score: number; label: string }) {
 
   return (
     <div className="flex shrink-0 flex-col items-center">
-      <svg width={size} height={size / 2 + 16} viewBox={`0 0 ${size} ${size / 2 + 16}`} role="img" aria-label={`Delegômetro ${score} de 100, ${label}`}>
+      <svg width={size} height={size / 2 + 16} viewBox={`0 0 ${size} ${size / 2 + 16}`} role="img" aria-label={`Índice de Delegação ${score} de 100, ${label}`}>
         <path d={arc} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth={14} strokeLinecap="round" />
         <path d={arc} fill="none" stroke={accent} strokeWidth={14} strokeLinecap="round" strokeDasharray={`${(circumference * score) / 100} ${circumference}`} />
         <text x={size / 2} y={size / 2 - 12} textAnchor="middle" fill="currentColor" fontSize={size / 4.5} fontWeight={700}>{score}</text>

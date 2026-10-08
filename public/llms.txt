@@ -1,6 +1,6 @@
 # Nexus Data Analytics
 
-> Consultoria brasileira em Data & Analytics, Inteligência Artificial, Governança de Dados, Automação Industrial e desenvolvimento de software. Atende empresas em todo o Brasil e tem produtos SaaS próprios: AI Wiki, FinOps Intelligence, Argus Sentinel e Delegômetro.
+> Consultoria brasileira em Data & Analytics, Inteligência Artificial, Governança de Dados, Automação Industrial e desenvolvimento de software. Atende empresas em todo o Brasil e tem produtos SaaS próprios: AI Wiki, FinOps Intelligence, Argus Sentinel e Nexus Amplify.
 
 A Nexus ajuda empresas a transformar dados em decisões confiáveis, conectando estratégia, tecnologia e operação. Atua com consultoria, projetos sob medida, liderança de tecnologia e produtos próprios.
 
@@ -25,7 +25,7 @@ Contato comercial: comercial@nexusdataanalytics.com.br · WhatsApp (48) 3197-819
 - [AI Wiki](https://nexusdataanalytics.com.br/produtos/ai-wiki): transforma políticas, manuais e processos internos em respostas rastreáveis, com acesso às fontes.
 - [FinOps Intelligence](https://nexusdataanalytics.com.br/produtos/finops): reúne custos de nuvem (Azure, AWS, GCP), investiga variações e prioriza otimizações.
 - [Argus Sentinel](https://nexusdataanalytics.com.br/produtos/argus): torre de controle para Microsoft Fabric e Power BI; monitora capacidades e falhas e propõe correções com IA, com aprovação humana.
-- [Delegômetro](https://nexusdataanalytics.com.br/produtos/delegometro): delegação que desenvolve líderes, com a metodologia CASAR, Coach de Delegação com IA, relatórios para o RH e controles de LGPD.
+- [Nexus Amplify](https://nexusdataanalytics.com.br/produtos/nexus-amplify): delegação que desenvolve líderes, com a metodologia CASAR, Coach de Delegação com IA, relatórios para o RH e controles de LGPD.
 
 ## Opcional
 

@@ -50,7 +50,7 @@ export const navMenus: NavMenu[] = [
           { href: "/produtos/ai-wiki", label: "AI Wiki", description: "Conhecimento interno com respostas e fontes", accent: "#55ddeb" },
           { href: "/produtos/finops", label: "FinOps Intelligence", description: "Visibilidade e otimização de custos cloud", accent: "#f5b84b" },
           { href: "/produtos/argus", label: "Argus Sentinel", description: "Torre de controle Fabric & Power BI", accent: "#8b7cf6" },
-          { href: "/produtos/delegometro", label: "Delegômetro", description: "Delegação que desenvolve líderes", accent: "#f47c6b" },
+          { href: "/produtos/nexus-amplify", label: "Nexus Amplify", description: "Delegação que desenvolve líderes", accent: "#f47c6b" },
         ],
       },
     ],
